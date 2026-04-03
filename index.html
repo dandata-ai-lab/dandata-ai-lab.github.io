@@ -2,100 +2,368 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Dan & Data AI Lab</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dan & Data AI Lab</title>
 
 <style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #0b0f1a;
-    color: #ffffff;
-}
+    * {
+        box-sizing: border-box;
+    }
 
-header {
-    text-align: center;
-    padding: 80px 20px;
-}
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: linear-gradient(180deg, #0b0f1a 0%, #11182a 100%);
+        color: #ffffff;
+    }
 
-h1 {
-    font-size: 42px;
-}
+    nav {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background: rgba(10, 14, 24, 0.95);
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+        backdrop-filter: blur(8px);
+    }
 
-p {
-    color: #b0b8c5;
-}
+    .nav-container {
+        max-width: 1100px;
+        margin: auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 14px 20px;
+    }
 
-.section {
-    padding: 60px 20px;
-    max-width: 900px;
-    margin: auto;
-}
+    .brand {
+        font-size: 20px;
+        font-weight: bold;
+        color: #ffffff;
+    }
 
-.card {
-    background: #12182b;
-    padding: 20px;
-    margin: 15px 0;
-    border-radius: 10px;
-}
+    .nav-links a {
+        color: #c7d2e3;
+        text-decoration: none;
+        margin-left: 18px;
+        font-size: 14px;
+    }
 
-button {
-    background: #00cfff;
-    border: none;
-    padding: 12px 20px;
-    color: black;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: bold;
-}
+    .nav-links a:hover {
+        color: #00d8ff;
+    }
+
+    header {
+        text-align: center;
+        padding: 90px 20px 70px 20px;
+        max-width: 1000px;
+        margin: auto;
+    }
+
+    header h1 {
+        font-size: 46px;
+        margin-bottom: 12px;
+    }
+
+    header p {
+        color: #b7c3d9;
+        font-size: 18px;
+        line-height: 1.6;
+        max-width: 760px;
+        margin: auto;
+    }
+
+    .hero-buttons {
+        margin-top: 28px;
+    }
+
+    .hero-buttons a {
+        text-decoration: none;
+        margin: 8px;
+        display: inline-block;
+    }
+
+    .btn {
+        background: #00d8ff;
+        color: #041018;
+        border: none;
+        padding: 13px 22px;
+        border-radius: 8px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.2s ease;
+    }
+
+    .btn:hover {
+        transform: translateY(-1px);
+        opacity: 0.95;
+    }
+
+    .btn-secondary {
+        background: #1c2740;
+        color: #ffffff;
+        border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .section {
+        max-width: 1100px;
+        margin: auto;
+        padding: 30px 20px 60px 20px;
+    }
+
+    .section h2 {
+        font-size: 30px;
+        margin-bottom: 20px;
+    }
+
+    .section-intro {
+        color: #aebbd0;
+        margin-bottom: 24px;
+        line-height: 1.6;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 20px;
+    }
+
+    .card {
+        background: rgba(18, 24, 43, 0.95);
+        border: 1px solid rgba(255,255,255,0.06);
+        border-radius: 14px;
+        padding: 22px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+    }
+
+    .card h3 {
+        margin-top: 0;
+        margin-bottom: 12px;
+        font-size: 22px;
+    }
+
+    .card p {
+        color: #b5c1d4;
+        line-height: 1.6;
+        font-size: 15px;
+    }
+
+    .card .tag {
+        display: inline-block;
+        margin-top: 10px;
+        margin-bottom: 16px;
+        font-size: 12px;
+        color: #00d8ff;
+        border: 1px solid rgba(0,216,255,0.25);
+        padding: 6px 10px;
+        border-radius: 999px;
+    }
+
+    .card a {
+        text-decoration: none;
+    }
+
+    footer {
+        text-align: center;
+        color: #90a0bb;
+        padding: 30px 20px 50px 20px;
+        border-top: 1px solid rgba(255,255,255,0.06);
+        margin-top: 20px;
+    }
+
+    @media (max-width: 700px) {
+        .nav-container {
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .nav-links a {
+            margin: 0 8px;
+        }
+
+        header h1 {
+            font-size: 34px;
+        }
+
+        header p {
+            font-size: 16px;
+        }
+    }
 </style>
-
 </head>
-
 <body>
 
+<nav>
+    <div class="nav-container">
+        <div class="brand">Dan & Data AI Lab</div>
+        <div class="nav-links">
+            <a href="#projects">Projects</a>
+            <a href="#services">Services</a>
+            <a href="#platforms">Platforms</a>
+            <a href="#support">Support</a>
+        </div>
+    </div>
+</nav>
+
 <header>
-    <h1>Dan & Data AI Lab</h1>
-    <p>Offline AI. Privacy First. Built with Purpose.</p>
+    <h1>Offline AI. Privacy First. Built with Purpose.</h1>
+    <p>
+        Dan & Data AI Lab is focused on custom offline AI tools, private local assistants,
+        modular software systems and practical Windows applications built for real-world use.
+    </p>
+
+    <div class="hero-buttons">
+        <a href="#projects"><button class="btn">View Projects</button></a>
+        <a href="#services"><button class="btn btn-secondary">Work With Me</button></a>
+    </div>
 </header>
 
-<div class="section">
-    <h2>Projects</h2>
+<section class="section" id="projects">
+    <h2>Featured Projects</h2>
+    <p class="section-intro">
+        A growing ecosystem of offline AI tools, assistants and experimental systems focused on privacy,
+        local control and modular design.
+    </p>
 
-    <div class="card">
-        <h3>Bella AI</h3>
-        <p>Interactive AI companion with voice, avatar and personality.</p>
+    <div class="grid">
+        <div class="card">
+            <h3>Bella AI</h3>
+            <p>Interactive AI companion with voice, personality, local processing and future modular expansion for offline use.</p>
+            <div class="tag">Companion AI</div>
+        </div>
+
+        <div class="card">
+            <h3>Nova AI</h3>
+            <p>Offline AI assistant powered by local language models, designed for productivity, interaction and future document workflows.</p>
+            <div class="tag">Local AI Assistant</div>
+        </div>
+
+        <div class="card">
+            <h3>AI Factory</h3>
+            <p>Internal system for generating and organizing offline AI tools, prototypes and modular assistants.</p>
+            <div class="tag">Internal Core Project</div>
+        </div>
     </div>
+</section>
 
-    <div class="card">
-        <h3>Nova AI</h3>
-        <p>Offline AI assistant powered by local LLM.</p>
+<section class="section" id="services">
+    <h2>Services & Software</h2>
+    <p class="section-intro">
+        Practical software, custom AI builds and useful tools created for creators, freelancers and small businesses.
+    </p>
+
+    <div class="grid">
+        <div class="card">
+            <h3>Custom AI Assistants</h3>
+            <p>Custom-built offline AI assistants for personal or professional use, designed around privacy and local control.</p>
+            <a href="AICI_PUI_LINKUL_TAU_FIVERR" target="_blank">
+                <button class="btn">Order on Fiverr</button>
+            </a>
+        </div>
+
+        <div class="card">
+            <h3>Windows Tools & Automation</h3>
+            <p>Useful desktop utilities, practical automation tools and custom Windows software built for real tasks.</p>
+            <a href="AICI_PUI_LINKUL_TAU_PAYPAL" target="_blank">
+                <button class="btn">Buy with PayPal</button>
+            </a>
+        </div>
+
+        <div class="card">
+            <h3>Audio Recorder Pro</h3>
+            <p>Audio recording software with export options and creator-friendly controls for efficient production workflows.</p>
+            <a href="AICI_PUI_LINKUL_TAU_PAYPAL" target="_blank">
+                <button class="btn">Buy Now</button>
+            </a>
+        </div>
+
+        <div class="card">
+            <h3>Prototype Software & Custom Builds</h3>
+            <p>Experimental apps, one-off tools and custom builds for clients who need focused solutions.</p>
+            <a href="AICI_PUI_LINKUL_TAU_FIVERR" target="_blank">
+                <button class="btn">Request Custom Work</button>
+            </a>
+        </div>
     </div>
+</section>
 
-    <div class="card">
-        <h3>AI Factory</h3>
-        <p>Internal system for generating offline AI tools.</p>
+<section class="section" id="platforms">
+    <h2>Links & Platforms</h2>
+    <p class="section-intro">
+        Follow the work, watch development progress, support the mission and explore the platforms connected to Dan & Data AI Lab.
+    </p>
+
+    <div class="grid">
+        <div class="card">
+            <h3>YouTube</h3>
+            <p>Watch demos, development videos and behind-the-scenes progress.</p>
+            <a href="AICI_PUI_LINKUL_TAU_YOUTUBE" target="_blank">
+                <button class="btn">Watch on YouTube</button>
+            </a>
+        </div>
+
+        <div class="card">
+            <h3>Fiverr</h3>
+            <p>Order custom AI assistants, software tools and tailored builds.</p>
+            <a href="AICI_PUI_LINKUL_TAU_FIVERR" target="_blank">
+                <button class="btn">Open Fiverr</button>
+            </a>
+        </div>
+
+        <div class="card">
+            <h3>Indiegogo</h3>
+            <p>See the crowdfunding journey and long-term vision behind the lab.</p>
+            <a href="AICI_PUI_LINKUL_TAU_INDIEGOGO" target="_blank">
+                <button class="btn">View Campaign</button>
+            </a>
+        </div>
+
+        <div class="card">
+            <h3>GoGetFunding</h3>
+            <p>Support the development of privacy-first offline AI projects.</p>
+            <a href="AICI_PUI_LINKUL_TAU_GGF" target="_blank">
+                <button class="btn">Support on GoGetFunding</button>
+            </a>
+        </div>
+
+        <div class="card">
+            <h3>Ko-Fi</h3>
+            <p>Support new releases and future software development directly.</p>
+            <a href="AICI_PUI_LINKUL_TAU_KOFI" target="_blank">
+                <button class="btn">Support on Ko-Fi</button>
+            </a>
+        </div>
+
+        <div class="card">
+            <h3>GitHub</h3>
+            <p>Explore the technical side of the work and future public experiments.</p>
+            <a href="AICI_PUI_LINKUL_TAU_GITHUB" target="_blank">
+                <button class="btn">Open GitHub</button>
+            </a>
+        </div>
     </div>
-</div>
+</section>
 
-<div class="section">
-    <h2>Services</h2>
+<section class="section" id="support">
+    <h2>Support the Mission</h2>
+    <p class="section-intro">
+        This lab is built around offline AI, privacy-first software and long-term independent development.
+        Support helps accelerate prototypes, product polish and future releases.
+    </p>
 
-    <div class="card">
-        <p>Custom AI Assistants</p>
-        <button>Order via Fiverr</button>
+    <div class="grid">
+        <div class="card">
+            <h3>Direct Support</h3>
+            <p>Use PayPal, Ko-Fi or GoGetFunding to support current work and help future projects grow faster.</p>
+            <a href="AICI_PUI_LINKUL_TAU_PAYPAL" target="_blank">
+                <button class="btn">Support with PayPal</button>
+            </a>
+        </div>
     </div>
+</section>
 
-    <div class="card">
-        <p>Windows Tools & Automation</p>
-        <button>Buy with PayPal</button>
-    </div>
-</div>
-
-<div class="section">
-    <h2>Support</h2>
-    <p>Support the development of offline AI systems.</p>
-</div>
+<footer>
+    <p>© Dan & Data AI Lab — Offline AI, custom software and privacy-first digital tools.</p>
+</footer>
 
 </body>
 </html>
