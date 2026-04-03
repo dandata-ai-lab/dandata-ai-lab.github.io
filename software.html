@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>D&D Software Store</title>
+  <style>
+    :root {
+      --bg: #07111f;
+      --bg-soft: #0d1b2d;
+      --card: rgba(15, 30, 52, 0.92);
+      --line: rgba(120, 185, 255, 0.18);
+      --text: #eaf4ff;
+      --muted: #9db7d6;
+      --accent: #4db6ff;
+      --accent-2: #78ffd6;
+      --danger: #ff8c8c;
+      --shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+      --radius: 22px;
+      --max: 1280px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top right, rgba(77,182,255,0.12), transparent 28%),
+        radial-gradient(circle at left center, rgba(120,255,214,0.08), transparent 25%),
+        linear-gradient(180deg, #05101c 0%, #081322 45%, #07111f 100%);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .container {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(12px);
+      background: rgba(4, 12, 22, 0.72);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      min-height: 76px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: 0.4px;
+    }
+
+    .brand-badge {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #00111d;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      box-shadow: 0 10px 24px rgba(77,182,255,0.22);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      padding: 10px 14px;
+      border-radius: 999px;
+      transition: 0.25s ease;
+      font-size: 0.95rem;
+    }
+
+    .nav-links a:hover {
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
+    }
+
+    .hero {
+      padding: 72px 0 34px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 26px;
+      align-items: stretch;
+    }
+
+    .hero-card,
+    .glass {
+      background: linear-gradient(180deg, rgba(15,30,52,0.92), rgba(10,22,39,0.88));
+      border: 1px solid var(--line);
+      border-radius: calc(var(--radius) + 4px);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card {
+      padding: 34px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      inset: auto -40px -60px auto;
+      width: 240px;
+      height: 240px;
+      background: radial-gradient(circle, rgba(77,182,255,0.22), transparent 60%);
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(77,182,255,0.1);
+      border: 1px solid rgba(77,182,255,0.22);
+      color: var(--accent-2);
+      font-size: 0.9rem;
+      margin-bottom: 18px;
+    }
+
+    h1, h2, h3 {
+      margin: 0;
+      line-height: 1.15;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 4vw, 3.6rem);
+      margin-bottom: 16px;
+      max-width: 12ch;
+    }
+
+    .lead {
+      color: var(--muted);
+      max-width: 64ch;
+      font-size: 1.06rem;
+      margin-bottom: 24px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 13px 18px;
+      border-radius: 14px;
+      font-weight: 700;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      border: 1px solid transparent;
+      cursor: pointer;
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), #77f0ff);
+      color: #02111b;
+      box-shadow: 0 10px 24px rgba(77,182,255,0.18);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+      border-color: rgba(255,255,255,0.08);
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 22px;
+    }
+
+    .stat {
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.3rem;
+      margin-bottom: 6px;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .side-panel {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .mini-box {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .mini-box p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .section {
+      padding: 28px 0;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .section-head p {
+      max-width: 60ch;
+      color: var(--muted);
+      margin: 8px 0 0;
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .filter-btn {
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
+      color: var(--text);
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .filter-btn.active,
+    .filter-btn:hover {
+      background: rgba(77,182,255,0.12);
+      border-color: rgba(77,182,255,0.28);
+      color: #dff7ff;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: linear-gradient(180deg, rgba(16,31,53,0.96), rgba(10,21,37,0.96));
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+    }
+
+    .card-top {
+      padding: 20px 20px 12px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: start;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 11px;
+      border-radius: 999px;
+      background: rgba(120,255,214,0.1);
+      color: var(--accent-2);
+      font-size: 0.82rem;
+      border: 1px solid rgba(120,255,214,0.18);
+    }
+
+    .price {
+      font-size: 1.25rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .card-body {
+      padding: 0 20px 18px;
+      flex: 1;
+    }
+
+    .card-body h3 {
+      font-size: 1.35rem;
+      margin-bottom: 10px;
+    }
+
+    .card-body p {
+      color: var(--muted);
+      margin: 0 0 16px;
+    }
+
+    .features {
+      display: grid;
+      gap: 8px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .features li {
+      display: flex;
+      gap: 10px;
+      color: #d9eaff;
+      font-size: 0.94rem;
+    }
+
+    .features li::before {
+      content: "✓";
+      color: var(--accent-2);
+      font-weight: 900;
+      flex: 0 0 auto;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 10px;
+      padding: 18px 20px 20px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      flex-wrap: wrap;
+    }
+
+    .card-actions .btn {
+      flex: 1 1 170px;
+    }
+
+    .note {
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .custom-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 18px;
+    }
+
+    .content-box {
+      padding: 24px;
+    }
+
+    .content-box p,
+    .content-box li {
+      color: var(--muted);
+    }
+
+    .content-box ul {
+      margin: 14px 0 0;
+      padding-left: 18px;
+    }
+
+    .steps {
+      display: grid;
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 52px 1fr;
+      gap: 14px;
+      align-items: start;
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .step-number {
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, rgba(77,182,255,0.24), rgba(120,255,214,0.18));
+      font-weight: 800;
+    }
+
+    .faq {
+      display: grid;
+      gap: 12px;
+    }
+
+    details {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 18px;
+      padding: 16px 18px;
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 700;
+      list-style: none;
+    }
+
+    summary::-webkit-details-marker { display: none; }
+
+    details p {
+      color: var(--muted);
+      margin: 12px 0 0;
+    }
+
+    .cta {
+      margin: 26px 0 36px;
+      padding: 28px;
+      border-radius: 28px;
+      background: linear-gradient(135deg, rgba(77,182,255,0.15), rgba(120,255,214,0.08));
+      border: 1px solid rgba(120,255,214,0.18);
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+
+    .cta p {
+      color: var(--muted);
+      margin: 10px auto 20px;
+      max-width: 62ch;
+    }
+
+    footer {
+      padding: 30px 0 46px;
+      color: var(--muted);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      margin-top: 16px;
+    }
+
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .muted-small {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .hidden { display: none !important; }
+
+    @media (max-width: 1080px) {
+      .hero-grid,
+      .custom-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .products {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 720px) {
+      .nav {
+        flex-direction: column;
+        justify-content: center;
+        padding: 14px 0;
+      }
+
+      .stats,
+      .products {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-card,
+      .side-panel,
+      .content-box,
+      .cta {
+        padding: 20px;
+      }
+
+      .section-head {
+        align-items: start;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container nav">
+      <a href="#top" class="brand">
+        <span class="brand-badge">D&D</span>
+        <span>Dan &amp; Data Software Store</span>
+      </a>
+      <nav class="nav-links">
+        <a href="#store">Store</a>
+        <a href="#custom">Custom Work</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-card">
+          <div class="eyebrow">Offline-first software • Privacy-focused • Built by D&amp;D</div>
+          <h1>Software that works for you, not against you.</h1>
+          <p class="lead">
+            Welcome to the D&amp;D software store. Here you can discover offline AI tools, desktop utilities,
+            and custom software solutions designed for privacy, control, and real everyday use.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#store">Explore software</a>
+            <a class="btn btn-secondary" href="#custom">Request custom build</a>
+          </div>
+          <div class="stats">
+            <div class="stat">
+              <strong>Offline</strong>
+              <span>Tools designed to run locally on your machine</span>
+            </div>
+            <div class="stat">
+              <strong>Private</strong>
+              <span>No cloud dependency as the core philosophy</span>
+            </div>
+            <div class="stat">
+              <strong>Custom</strong>
+              <span>Software adapted to real client needs</span>
+            </div>
+          </div>
+        </div>
+
+        <aside class="glass side-panel">
+          <div class="mini-box">
+            <strong>What you can find here</strong>
+            <p>AI assistants, desktop apps, utility tools, private workflows, and software built with clarity and control.</p>
+          </div>
+          <div class="mini-box">
+            <strong>D&amp;D promise</strong>
+            <p>Simple, honest, direct software presentation. No hype. No unnecessary complexity. Only useful solutions.</p>
+          </div>
+          <div class="mini-box">
+            <strong>Important note</strong>
+            <p>Some products may be shown as demo, preview, or future release depending on your launch status. Update links when each one goes live.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="store" class="section">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Software Store</h2>
+            <p>Select a category and explore the software pages. Each card can link to its own product page, PayPal page, or contact form.</p>
+          </div>
+        </div>
+
+        <div class="filters">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="ai">AI Software</button>
+          <button class="filter-btn" data-filter="desktop">Desktop Tools</button>
+          <button class="filter-btn" data-filter="services">Services</button>
+        </div>
+
+        <div class="products">
+          <article class="card product-card" data-category="ai">
+            <div class="card-top">
+              <span class="tag">AI Software</span>
+              <span class="price">From €149</span>
+            </div>
+            <div class="card-body">
+              <h3>Bella AI</h3>
+              <p>Offline AI assistant concept focused on voice, interaction, and local control.</p>
+              <ul class="features">
+                <li>Local-first design</li>
+                <li>Human-friendly interface</li>
+                <li>Expandable for future modules</li>
+              </ul>
+            </div>
+            <div class="card-actions">
+              <a class="btn btn-primary" href="bella.html">Open Bella page</a>
+              <a class="btn btn-secondary" href="#contact">Ask details</a>
+            </div>
+          </article>
+
+          <article class="card product-card" data-category="ai">
+            <div class="card-top">
+              <span class="tag">AI Software</span>
+              <span class="price">From €199</span>
+            </div>
+            <div class="card-body">
+              <h3>Nova AI</h3>
+              <p>Offline assistant vision for productivity, local intelligence, and privacy-first interaction.</p>
+              <ul class="features">
+                <li>Runs locally</li>
+                <li>Privacy-centered philosophy</li>
+                <li>Modular future expansion</li>
+              </ul>
+            </div>
+            <div class="card-actions">
+              <a class="btn btn-primary" href="nova.html">Open Nova page</a>
+              <a class="btn btn-secondary" href="#contact">Ask details</a>
+            </div>
+          </article>
+
+          <article class="card product-card" data-category="ai">
+            <div class="card-top">
+              <span class="tag">AI Software</span>
+              <span class="price">Private</span>
+            </div>
+            <div class="card-body">
+              <h3>D&amp;D Factory</h3>
+              <p>The D&amp;D internal generator and ecosystem page. Use this card as an information or showcase entry.</p>
+              <ul class="features">
+                <li>Can be presented as showcase only</li>
+                <li>Strong branding anchor</li>
+                <li>Useful for trust and credibility</li>
+              </ul>
+            </div>
+            <div class="card-actions">
+              <a class="btn btn-primary" href="factory.html">Open Factory page</a>
+              <a class="btn btn-secondary" href="#contact">Business inquiry</a>
+            </div>
+          </article>
+
+          <article class="card product-card" data-category="desktop">
+            <div class="card-top">
+              <span class="tag">Desktop Tool</span>
+              <span class="price">From €25</span>
+            </div>
+            <div class="card-body">
+              <h3>Custom Windows Utility</h3>
+              <p>Small practical desktop software for Windows, tailored to simple but useful real tasks.</p>
+              <ul class="features">
+                <li>Clean interface</li>
+                <li>Focused functionality</li>
+                <li>Fast delivery concept</li>
+              </ul>
+            </div>
+            <div class="card-actions">
+              <a class="btn btn-primary" href="#custom">Request utility</a>
+              <a class="btn btn-secondary" href="#contact">Contact</a>
+            </div>
+          </article>
+
+          <article class="card product-card" data-category="services">
+            <div class="card-top">
+              <span class="tag">Service</span>
+              <span class="price">Custom</span>
+            </div>
+            <div class="card-body">
+              <h3>Private Software Build</h3>
+              <p>A custom-built solution for a client who needs something specific, local, and clearly defined.</p>
+              <ul class="features">
+                <li>Requirement-based</li>
+                <li>Privacy-focused approach</li>
+                <li>Direct discussion workflow</li>
+              </ul>
+            </div>
+            <div class="card-actions">
+              <a class="btn btn-primary" href="#custom">Start request</a>
+              <a class="btn btn-secondary" href="#contact">Email first</a>
+            </div>
+          </article>
+
+          <article class="card product-card" data-category="services">
+            <div class="card-top">
+              <span class="tag">Service</span>
+              <span class="price">Quote</span>
+            </div>
+            <div class="card-body">
+              <h3>Consultation &amp; Planning</h3>
+              <p>Useful when a client needs help clarifying an idea before building the final software product.</p>
+              <ul class="features">
+                <li>Idea clarification</li>
+                <li>Feature planning</li>
+                <li>Project structure guidance</li>
+              </ul>
+            </div>
+            <div class="card-actions">
+              <a class="btn btn-primary" href="#contact">Book discussion</a>
+              <a class="btn btn-secondary" href="services.html">More services</a>
+            </div>
+          </article>
+        </div>
+
+        <p class="note">
+          Replace the prices, product names, and button links with your real launch data. This page is structured so you can connect every card to a dedicated product page or payment page.
+        </p>
+      </div>
+    </section>
+
+    <section id="custom" class="section">
+      <div class="container custom-grid">
+        <div class="card content-box">
+          <h2>Custom Software by D&amp;D</h2>
+          <p>
+            Need a custom app, private tool, or offline AI-based solution? This section turns the store into a real lead-generation page.
+          </p>
+          <ul>
+            <li>Desktop tools for Windows</li>
+            <li>Offline-first utility software</li>
+            <li>Private workflow solutions</li>
+            <li>Custom interfaces for practical tasks</li>
+            <li>AI-inspired local tools and assistant concepts</li>
+          </ul>
+          <div class="hero-actions" style="margin-top:18px;">
+            <a class="btn btn-primary" href="#contact">Request a quote</a>
+            <a class="btn btn-secondary" href="mailto:contact@yourdomain.com">Email directly</a>
+          </div>
+        </div>
+
+        <div class="card content-box">
+          <h2>How it works</h2>
+          <div class="steps">
+            <div class="step">
+              <div class="step-number">1</div>
+              <div>
+                <strong>You describe the idea</strong>
+                <p>Explain what you need the software to do, who it is for, and what platform it should run on.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-number">2</div>
+              <div>
+                <strong>D&amp;D evaluates the scope</strong>
+                <p>The idea is reviewed and translated into a practical, realistic software direction.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-number">3</div>
+              <div>
+                <strong>Build or propose next step</strong>
+                <p>You receive a path forward: quote, roadmap, or direct build proposal depending on complexity.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="section">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>FAQ</h2>
+            <p>Simple answers for visitors who want to understand how D&amp;D software is presented and delivered.</p>
+          </div>
+        </div>
+
+        <div class="faq">
+          <details>
+            <summary>Are all products fully offline?</summary>
+            <p>Many D&amp;D software concepts are built around an offline-first philosophy. For each product, the exact level of offline capability should be described on its own page.</p>
+          </details>
+          <details>
+            <summary>Can I request custom software?</summary>
+            <p>Yes. This page is designed to work both as a software store and as a front page for custom development requests.</p>
+          </details>
+          <details>
+            <summary>Do you offer simple desktop apps too?</summary>
+            <p>Yes. D&amp;D can also present smaller Windows tools, utilities, and focused productivity software in addition to larger AI concepts.</p>
+          </details>
+          <details>
+            <summary>How do I buy a product?</summary>
+            <p>You can connect each product button to a PayPal payment page, dedicated product page, checkout link, Fiverr listing, or direct contact workflow.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="cta">
+          <h2>Ready to explore or request your software?</h2>
+          <p>
+            Use this section as your final conversion block. You can send visitors to PayPal, a contact form, Fiverr, a custom order page, or a dedicated product landing page.
+          </p>
+          <div class="hero-actions" style="justify-content:center; margin-bottom:0;">
+            <a class="btn btn-primary" href="mailto:contact@yourdomain.com">Email D&amp;D</a>
+            <a class="btn btn-secondary" href="https://www.paypal.com/">PayPal / Buy Now</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-row">
+      <div>
+        <strong>Dan &amp; Data AI Lab</strong>
+        <div class="muted-small">Software, privacy, control, and offline-first ideas.</div>
+      </div>
+      <div class="muted-small">
+        © <span id="year"></span> D&amp;D. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const productCards = document.querySelectorAll('.product-card');
+
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+
+        const filter = button.dataset.filter;
+        productCards.forEach(card => {
+          const category = card.dataset.category;
+          const show = filter === 'all' || category === filter;
+          card.classList.toggle('hidden', !show);
+        });
+      });
+    });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
