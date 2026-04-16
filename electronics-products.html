@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Electronics Catalog | Dan & Data AI Lab</title>
+  <style>
+    :root {
+      --bg: #10271d;
+      --bg2: #183b2b;
+      --bg3: #24533d;
+      --card: rgba(25, 73, 49, 0.92);
+      --card-deep: rgba(18, 54, 37, 0.94);
+      --line: rgba(186, 255, 214, 0.14);
+      --text: #f4fff8;
+      --muted: #d1e8da;
+      --accent: #56f0b5;
+      --accent2: #9dff9d;
+      --accent3: #9ff0ff;
+      --shadow: 0 18px 40px rgba(0, 0, 0, 0.30);
+      --radius: 22px;
+      --max: 1280px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(86,240,181,0.10), transparent 22%),
+        radial-gradient(circle at top right, rgba(157,255,157,0.09), transparent 24%),
+        linear-gradient(180deg, var(--bg) 0%, var(--bg2) 52%, var(--bg3) 100%);
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.14;
+      background-image:
+        linear-gradient(90deg, rgba(186,255,214,0.05) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(186,255,214,0.04) 1px, transparent 1px),
+        radial-gradient(circle at 18% 18%, rgba(86,240,181,0.18) 0 3px, transparent 4px),
+        radial-gradient(circle at 74% 30%, rgba(159,240,255,0.14) 0 3px, transparent 4px);
+      background-size: 78px 78px, 78px 78px, 100% 100%, 100% 100%;
+      z-index: 0;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(12px);
+      background: rgba(10, 28, 20, 0.84);
+      border-bottom: 1px solid rgba(186,255,214,0.10);
+    }
+
+    .nav {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.5rem;
+      font-weight: 800;
+    }
+
+    .brand-badge {
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #032018;
+      font-size: 0.82rem;
+      font-weight: 900;
+      box-shadow: 0 10px 22px rgba(86,240,181,0.18);
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      padding: 10px 14px;
+      border-radius: 999px;
+      transition: 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+      background: rgba(255,255,255,0.05);
+    }
+
+    .hero {
+      padding: 70px 0 28px;
+    }
+
+    .hero-box {
+      padding: 34px;
+      border-radius: 28px;
+      background: linear-gradient(180deg, rgba(31,92,63,0.94), rgba(21,62,44,0.94));
+      border: 1px solid rgba(186,255,214,0.14);
+      box-shadow: var(--shadow);
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(86,240,181,0.12);
+      border: 1px solid rgba(86,240,181,0.20);
+      color: #ddfff4;
+      font-size: 0.92rem;
+      margin-bottom: 14px;
+    }
+
+    h1, h2, h3 {
+      margin: 0;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.1;
+      margin-bottom: 16px;
+      max-width: 14ch;
+    }
+
+    .lead {
+      color: var(--muted);
+      max-width: 70ch;
+      font-size: 1.05rem;
+      margin-bottom: 20px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 13px 18px;
+      border-radius: 14px;
+      border: 1px solid transparent;
+      font-weight: 700;
+      transition: 0.2s ease;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #032018;
+      box-shadow: 0 10px 24px rgba(86,240,181,0.18);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.05);
+      border-color: rgba(186,255,214,0.10);
+      color: var(--text);
+    }
+
+    .section {
+      padding: 24px 0;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .section-head p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      max-width: 64ch;
+    }
+
+    .catalog-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .catalog-card {
+      background: linear-gradient(180deg, rgba(31,92,63,0.96), rgba(21,62,44,0.96));
+      border: 1px solid rgba(186,255,214,0.12);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+      position: relative;
+    }
+
+    .catalog-card::after {
+      content: "";
+      position: absolute;
+      inset: auto -36px -36px auto;
+      width: 120px;
+      height: 120px;
+      background: radial-gradient(circle, rgba(86,240,181,0.10), transparent 60%);
+      pointer-events: none;
+    }
+
+    .catalog-image-wrap {
+      aspect-ratio: 16 / 9;
+      background: #183727;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(186,255,214,0.10);
+    }
+
+    .catalog-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.25s ease;
+    }
+
+    .catalog-card:hover .catalog-image {
+      transform: scale(1.04);
+    }
+
+    .catalog-content {
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex: 1;
+      position: relative;
+      z-index: 1;
+    }
+
+    .top-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .top-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .category {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(86,240,181,0.12);
+      color: #e2fff5;
+      border: 1px solid rgba(86,240,181,0.18);
+      font-size: 0.84rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 10px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.05);
+      color: #eef6ff;
+    }
+
+    .badge-featured {
+      background: rgba(86,240,181,0.14);
+      border-color: rgba(86,240,181,0.22);
+      color: #e0fff2;
+    }
+
+    .badge-service {
+      background: rgba(159,240,255,0.14);
+      border-color: rgba(159,240,255,0.22);
+      color: #e6fdff;
+    }
+
+    .badge-custom {
+      background: rgba(255,214,102,0.14);
+      border-color: rgba(255,214,102,0.22);
+      color: #fff2c7;
+    }
+
+    .price {
+      font-weight: 800;
+      font-size: 1rem;
+      white-space: nowrap;
+    }
+
+    .catalog-content p {
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .meta span {
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.05);
+      color: #eefcf6;
+      font-size: 0.82rem;
+    }
+
+    .card-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: auto;
+      padding-top: 6px;
+    }
+
+    .card-actions .btn {
+      flex: 1 1 150px;
+    }
+
+    .cta-box {
+      margin-top: 24px;
+      text-align: center;
+      padding: 28px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, rgba(86,240,181,0.12), rgba(157,255,157,0.10));
+      border: 1px solid rgba(86,240,181,0.16);
+      box-shadow: var(--shadow);
+    }
+
+    .cta-box p {
+      color: var(--muted);
+      max-width: 64ch;
+      margin: 10px auto 20px;
+    }
+
+    footer {
+      padding: 34px 0 48px;
+      color: var(--muted);
+      border-top: 1px solid rgba(186,255,214,0.10);
+      margin-top: 30px;
+    }
+
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 1050px) {
+      .catalog-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 760px) {
+      .nav {
+        flex-direction: column;
+        justify-content: center;
+        padding: 14px 0;
+      }
+
+      .catalog-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-box,
+      .cta-box {
+        padding: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container nav">
+      <a href="index.html" class="brand">
+        <span class="brand-badge">PCB</span>
+        <span>Dan &amp; Data AI Lab</span>
+      </a>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="software.html">Software</a>
+        <a href="electronics.html">Electronics</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-box">
+          <div class="eyebrow">Electronics services • Automation • Embedded work</div>
+          <h1>Electronics Catalog</h1>
+          <p class="lead">
+            Explore practical electronics services, embedded systems direction, diagnostics, automation-related work, and custom hardware + software integration projects under Dan &amp; Data AI Lab.
+          </p>
+          <div class="hero-actions">
+            <a href="#catalog" class="btn btn-primary">Browse Electronics</a>
+            <a href="electronics.html" class="btn btn-secondary">Back to Electronics Page</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="catalog">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Electronics & Automation Catalog</h2>
+            <p>Representative services, project directions, and practical technical work for real-world systems.</p>
+          </div>
+        </div>
+
+        <div class="catalog-grid">
+          <article class="catalog-card">
+            <div class="catalog-image-wrap">
+              <img src="images/pcb-bg.jpg" alt="Electronics diagnostics and repair" class="catalog-image">
+            </div>
+            <div class="catalog-content">
+              <div class="top-row">
+                <div class="top-left">
+                  <span class="category">Diagnostics</span>
+                  <span class="badge badge-featured">Featured</span>
+                </div>
+                <span class="price">Custom</span>
+              </div>
+              <h3>Electronics Repair & Diagnostics</h3>
+              <p>Fault finding, practical troubleshooting, repair logic, and analysis of real electronic hardware issues.</p>
+              <div class="meta">
+                <span>Repair</span>
+                <span>Diagnostics</span>
+                <span>Practical</span>
+              </div>
+              <div class="card-actions">
+                <a class="btn btn-primary" href="mailto:contact@yourdomain.com?subject=Electronics%20Repair%20and%20Diagnostics">Request Quote</a>
+                <a class="btn btn-secondary" href="electronics.html">View Details</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="catalog-card">
+            <div class="catalog-image-wrap">
+              <img src="images/pcb-bg.jpg" alt="Raspberry Pi systems" class="catalog-image">
+            </div>
+            <div class="catalog-content">
+              <div class="top-row">
+                <div class="top-left">
+                  <span class="category">Embedded</span>
+                  <span class="badge badge-service">Service</span>
+                </div>
+                <span class="price">Custom</span>
+              </div>
+              <h3>Raspberry Pi Based Systems</h3>
+              <p>Custom Raspberry Pi setups, local systems, automation workflows, and practical embedded project direction.</p>
+              <div class="meta">
+                <span>Raspberry Pi</span>
+                <span>Embedded</span>
+                <span>Automation</span>
+              </div>
+              <div class="card-actions">
+                <a class="btn btn-primary" href="mailto:contact@yourdomain.com?subject=Raspberry%20Pi%20Project">Request Project</a>
+                <a class="btn btn-secondary" href="electronics.html">View Details</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="catalog-card">
+            <div class="catalog-image-wrap">
+              <img src="images/pcb-bg.jpg" alt="Arduino controllers" class="catalog-image">
+            </div>
+            <div class="catalog-content">
+              <div class="top-row">
+                <div class="top-left">
+                  <span class="category">Controllers</span>
+                  <span class="badge badge-service">Service</span>
+                </div>
+                <span class="price">Custom</span>
+              </div>
+              <h3>Arduino Controllers & Sensor Logic</h3>
+              <p>Arduino-based control systems, sensor integration, automation behavior, and practical prototype building.</p>
+              <div class="meta">
+                <span>Arduino</span>
+                <span>Sensors</span>
+                <span>Control</span>
+              </div>
+              <div class="card-actions">
+                <a class="btn btn-primary" href="mailto:contact@yourdomain.com?subject=Arduino%20Controller%20Project">Request Project</a>
+                <a class="btn btn-secondary" href="electronics.html">View Details</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="catalog-card">
+            <div class="catalog-image-wrap">
+              <img src="images/pcb-bg.jpg" alt="PIC microcontroller work" class="catalog-image">
+            </div>
+            <div class="catalog-content">
+              <div class="top-row">
+                <div class="top-left">
+                  <span class="category">Microcontrollers</span>
+                  <span class="badge badge-custom">Custom</span>
+                </div>
+                <span class="price">Quote</span>
+              </div>
+              <h3>PIC Microcontroller Direction</h3>
+              <p>Low-level logic work, PIC-related embedded direction, and practical experience including Assembler-based thinking.</p>
+              <div class="meta">
+                <span>PIC</span>
+                <span>Assembler</span>
+                <span>Embedded</span>
+              </div>
+              <div class="card-actions">
+                <a class="btn btn-primary" href="mailto:contact@yourdomain.com?subject=PIC%20Microcontroller%20Project">Request Build</a>
+                <a class="btn btn-secondary" href="electronics.html">View Details</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="catalog-card">
+            <div class="catalog-image-wrap">
+              <img src="images/pcb-bg.jpg" alt="Automation systems" class="catalog-image">
+            </div>
+            <div class="catalog-content">
+              <div class="top-row">
+                <div class="top-left">
+                  <span class="category">Automation</span>
+                  <span class="badge badge-featured">Featured</span>
+                </div>
+                <span class="price">Quote</span>
+              </div>
+              <h3>Custom Automation Systems</h3>
+              <p>Project direction and practical build support for home and industrial automation concepts based on real needs.</p>
+              <div class="meta">
+                <span>Automation</span>
+                <span>Industrial</span>
+                <span>Home</span>
+              </div>
+              <div class="card-actions">
+                <a class="btn btn-primary" href="mailto:contact@yourdomain.com?subject=Custom%20Automation%20System">Request Quote</a>
+                <a class="btn btn-secondary" href="electronics.html">View Details</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="catalog-card">
+            <div class="catalog-image-wrap">
+              <img src="images/pcb-bg.jpg" alt="Hardware and software integration" class="catalog-image">
+            </div>
+            <div class="catalog-content">
+              <div class="top-row">
+                <div class="top-left">
+                  <span class="category">Integration</span>
+                  <span class="badge badge-custom">Custom</span>
+                </div>
+                <span class="price">Custom</span>
+              </div>
+              <h3>Hardware + Software Integration</h3>
+              <p>Bridge physical systems with software logic, desktop tools, interfaces, and practical project workflows.</p>
+              <div class="meta">
+                <span>Hardware</span>
+                <span>Software</span>
+                <span>Integration</span>
+              </div>
+              <div class="card-actions">
+                <a class="btn btn-primary" href="mailto:contact@yourdomain.com?subject=Hardware%20and%20Software%20Integration">Request Project</a>
+                <a class="btn btn-secondary" href="electronics.html">View Details</a>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="cta-box">
+          <h2>Need a custom electronics project?</h2>
+          <p>
+            If you need diagnostics, control logic, embedded systems direction, hardware prototyping, automation concepts, or practical integration work, this catalog is only the starting point.
+          </p>
+          <div class="hero-actions" style="justify-content:center;">
+            <a href="mailto:contact@yourdomain.com?subject=Custom%20Electronics%20Project" class="btn btn-primary">Request Custom Project</a>
+            <a href="electronics.html" class="btn btn-secondary">Back to Electronics</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-row">
+      <div>
+        <strong>Dan &amp; Data AI Lab</strong><br>
+        Electronics, automation, embedded systems, and practical engineering work.
+      </div>
+      <div>
+        Hardware catalog focused on real-world technical solutions.
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
