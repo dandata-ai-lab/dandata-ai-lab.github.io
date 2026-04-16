@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>D&D Products Catalog</title>
+  <title>D&D Product Catalog | Dan & Data AI Lab</title>
   <style>
     :root {
       --bg: #08111d;
@@ -32,7 +32,10 @@
         linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
     }
 
-    a { color: inherit; text-decoration: none; }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
     .container {
       width: min(var(--max), calc(100% - 32px));
@@ -102,7 +105,9 @@
       margin-bottom: 14px;
     }
 
-    h1, h2, h3, h4 { margin: 0; }
+    h1, h2, h3 {
+      margin: 0;
+    }
 
     h1 {
       font-size: clamp(2rem, 4vw, 3.3rem);
@@ -138,7 +143,9 @@
       cursor: pointer;
     }
 
-    .btn:hover { transform: translateY(-2px); }
+    .btn:hover {
+      transform: translateY(-2px);
+    }
 
     .btn-primary {
       background: linear-gradient(135deg, var(--accent), var(--accent2));
@@ -367,20 +374,20 @@
       text-align: center;
     }
 
-    .info-box {
-      margin-top: 22px;
-      padding: 20px;
-      border-radius: 22px;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.06);
-      color: var(--muted);
+    .cta-box {
+      margin-top: 24px;
+      text-align: center;
+      padding: 28px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, rgba(25,230,255,0.10), rgba(95,183,255,0.08));
+      border: 1px solid rgba(25,230,255,0.16);
+      box-shadow: var(--shadow);
     }
 
-    .info-box code {
-      color: #c8f8ff;
-      background: rgba(255,255,255,0.04);
-      padding: 2px 6px;
-      border-radius: 8px;
+    .cta-box p {
+      color: var(--muted);
+      max-width: 64ch;
+      margin: 10px auto 20px;
     }
 
     footer {
@@ -422,7 +429,8 @@
         grid-template-columns: 1fr;
       }
 
-      .hero-box {
+      .hero-box,
+      .cta-box {
         padding: 22px;
       }
     }
@@ -434,9 +442,9 @@
       <a href="index.html" class="brand">Dan &amp; Data AI Lab</a>
       <nav class="nav-links">
         <a href="index.html">Home</a>
-        <a href="bella.html">Bella</a>
-        <a href="nova.html">Nova</a>
-        <a href="factory.html">Factory</a>
+        <a href="products.html">Products</a>
+        <a href="software.html">Software</a>
+        <a href="electronics.html">Electronics</a>
       </nav>
     </div>
   </header>
@@ -445,10 +453,10 @@
     <section class="hero">
       <div class="container">
         <div class="hero-box">
-          <div class="eyebrow">Modular product catalog</div>
+          <div class="eyebrow">Software product catalog</div>
           <h1>D&amp;D Products</h1>
           <p class="lead">
-            This page is made to help you add, update, and present software products fast. You only edit the product list in one place, and the cards appear automatically.
+            Explore a growing catalog of practical digital tools, custom software, offline AI solutions, and project-based products created under Dan &amp; Data AI Lab.
           </p>
           <div class="hero-actions">
             <a href="#products" class="btn btn-primary">Browse Products</a>
@@ -463,7 +471,7 @@
         <div class="section-head">
           <div>
             <h2>Software Catalog</h2>
-            <p>Add new products by editing the JavaScript list near the bottom of this file. No need to rebuild the layout every time.</p>
+            <p>Browse available software, custom builds, and practical tools designed for real-world use.</p>
           </div>
         </div>
 
@@ -477,12 +485,15 @@
         <div class="products-grid" id="productsGrid"></div>
         <div class="empty-state" id="emptyState">No products match your search right now.</div>
 
-        <div class="info-box">
-          <strong>How you add a new product later:</strong><br><br>
-          1. Upload a new image into the <code>images/</code> folder.<br>
-          2. Duplicate one product object in the JavaScript list.<br>
-          3. Change the <code>name</code>, <code>image</code>, <code>description</code>, <code>price</code>, <code>badge</code>, and <code>buyLink</code>.<br>
-          4. Commit to GitHub. The new card appears automatically.
+        <div class="cta-box">
+          <h2>Need something custom?</h2>
+          <p>
+            If you need a software tool, private utility, custom AI-based workflow, or project-specific digital build, this catalog is only part of the full direction.
+          </p>
+          <div class="hero-actions" style="justify-content:center;">
+            <a href="software.html" class="btn btn-primary">View Software Store</a>
+            <a href="mailto:contact@yourdomain.com?subject=Custom%20Software%20Request" class="btn btn-secondary">Request Custom Work</a>
+          </div>
         </div>
       </div>
     </section>
@@ -494,7 +505,9 @@
         <strong>Dan &amp; Data AI Lab</strong><br>
         Modular software catalog for products, tools, and custom apps.
       </div>
-      <div>Update the product list anytime and keep the page clean.</div>
+      <div>
+        Practical digital products built for real use.
+      </div>
     </div>
   </footer>
 
@@ -510,8 +523,8 @@
         badge: "Featured",
         buyLabel: "Buy Now",
         buyLink: "https://www.paypal.com/",
-        detailsLabel: "Ask Details",
-        detailsLink: "mailto:contact@yourdomain.com?subject=Audio%20Recorder%20Pro"
+        detailsLabel: "View Product",
+        detailsLink: "audio-recorder-pro.html"
       },
       {
         name: "Windows Tools & Automation",
