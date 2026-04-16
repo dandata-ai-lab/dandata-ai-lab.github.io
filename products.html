@@ -262,6 +262,14 @@
       justify-content: space-between;
       gap: 10px;
       align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .top-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
     }
 
     .category {
@@ -273,6 +281,42 @@
       color: #a9fbff;
       border: 1px solid rgba(25,230,255,0.18);
       font-size: 0.84rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 10px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.05);
+      color: #eef6ff;
+    }
+
+    .badge-featured {
+      background: rgba(25,230,255,0.12);
+      border-color: rgba(25,230,255,0.24);
+      color: #aefbff;
+    }
+
+    .badge-best-seller {
+      background: rgba(95,183,255,0.14);
+      border-color: rgba(95,183,255,0.26);
+      color: #d7ecff;
+    }
+
+    .badge-new {
+      background: rgba(120,255,180,0.12);
+      border-color: rgba(120,255,180,0.20);
+      color: #d8ffe7;
+    }
+
+    .badge-preview {
+      background: rgba(255,214,102,0.12);
+      border-color: rgba(255,214,102,0.22);
+      color: #fff0be;
     }
 
     .price {
@@ -437,7 +481,7 @@
           <strong>How you add a new product later:</strong><br><br>
           1. Upload a new image into the <code>images/</code> folder.<br>
           2. Duplicate one product object in the JavaScript list.<br>
-          3. Change the <code>name</code>, <code>image</code>, <code>description</code>, <code>price</code>, and <code>buyLink</code>.<br>
+          3. Change the <code>name</code>, <code>image</code>, <code>description</code>, <code>price</code>, <code>badge</code>, and <code>buyLink</code>.<br>
           4. Commit to GitHub. The new card appears automatically.
         </div>
       </div>
@@ -463,6 +507,7 @@
         description: "Audio recording desktop software with export options and creator-friendly workflow.",
         price: "€25",
         tags: ["Windows", "Recorder", "Creator"],
+        badge: "Featured",
         buyLabel: "Buy Now",
         buyLink: "https://www.paypal.com/",
         detailsLabel: "Ask Details",
@@ -475,6 +520,7 @@
         description: "Useful desktop utilities and practical automation tools built for real tasks.",
         price: "From €25",
         tags: ["Windows", "Utility", "Automation"],
+        badge: "Best Seller",
         buyLabel: "Buy with PayPal",
         buyLink: "https://www.paypal.com/",
         detailsLabel: "Request Custom",
@@ -487,6 +533,7 @@
         description: "Custom-built offline AI assistant adapted to personal or professional use.",
         price: "Custom",
         tags: ["Offline", "AI", "Custom"],
+        badge: "New",
         buyLabel: "Order on Fiverr",
         buyLink: "https://www.fiverr.com/",
         detailsLabel: "Ask Quote",
@@ -499,6 +546,7 @@
         description: "Experimental apps, prototypes, and one-off builds for focused client needs.",
         price: "Quote",
         tags: ["Prototype", "Custom", "Build"],
+        badge: "Preview",
         buyLabel: "Request Build",
         buyLink: "mailto:contact@yourdomain.com?subject=Prototype%20Software%20Build",
         detailsLabel: "View Store",
@@ -543,6 +591,16 @@
       return text.includes(query.toLowerCase());
     }
 
+    function getBadgeClass(badge) {
+      const map = {
+        'Featured': 'badge badge-featured',
+        'Best Seller': 'badge badge-best-seller',
+        'New': 'badge badge-new',
+        'Preview': 'badge badge-preview'
+      };
+      return map[badge] || 'badge';
+    }
+
     function renderProducts() {
       const query = searchInput.value.trim().toLowerCase();
 
@@ -559,7 +617,10 @@
           </div>
           <div class="product-content">
             <div class="top-row">
-              <span class="category">${product.category}</span>
+              <div class="top-left">
+                <span class="category">${product.category}</span>
+                ${product.badge ? `<span class="${getBadgeClass(product.badge)}">${product.badge}</span>` : ''}
+              </div>
               <span class="price">${product.price}</span>
             </div>
             <h3>${product.name}</h3>
