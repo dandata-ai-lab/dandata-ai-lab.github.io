@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Request Automation Project | Dan & Data AI Lab</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(180deg, #e6e8ec 0%, #bfc5cc 100%);
+    color: #15171a;
+}
+
+nav {
+    background: #2b2f36;
+}
+
+.nav-container {
+    max-width: 1100px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    padding: 14px 20px;
+}
+
+.brand { color: #fff; font-weight: bold; }
+
+.section {
+    max-width: 700px;
+    margin: auto;
+    padding: 50px 20px;
+}
+
+.form-box {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+h1 {
+    margin-top: 0;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+textarea {
+    height: 120px;
+}
+
+.btn {
+    background: #2b2f36;
+    color: #fff;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    width: 100%;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background: #0077ff;
+}
+
+.back {
+    margin-top: 20px;
+    display: inline-block;
+    text-decoration: none;
+    color: #2b2f36;
+    font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+<div class="nav-container">
+    <div class="brand">Dan & Data AI Lab</div>
+</div>
+</nav>
+
+<section class="section">
+
+<div class="form-box">
+
+<h1>Request Custom Automation</h1>
+
+<form action="mailto:EMAILUL_TAU@gmail.com" method="post" enctype="text/plain">
+
+<label>Name</label>
+<input type="text" name="Name" required>
+
+<label>Email</label>
+<input type="email" name="Email" required>
+
+<label>Project Type</label>
+<select name="Project Type">
+    <option>Smart Home</option>
+    <option>Raspberry Pi</option>
+    <option>Arduino / ESP32</option>
+    <option>Industrial Automation</option>
+    <option>Custom Project</option>
+</select>
+
+<label>Project Details</label>
+<textarea name="Details" placeholder="Describe what you want..."></textarea>
+
+<button type="submit" class="btn">Send Request</button>
+
+</form>
+
+<a href="index.html" class="back">← Back to Home</a>
+
+</div>
+
+</section>
+
+</body>
+</html>
