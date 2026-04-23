@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nova Ecosystem | Dan & Data AI Lab</title>
+  <style>
+    :root {
+      --bg: #09111f;
+      --bg2: #0f1b30;
+      --bg3: #152845;
+      --card: rgba(255,255,255,0.05);
+      --line: rgba(255,255,255,0.08);
+      --text: #edf6ff;
+      --muted: #b8c9df;
+      --accent: #4fd1ff;
+      --accent2: #8df0ff;
+      --shadow: 0 18px 40px rgba(0,0,0,0.30);
+      --radius: 22px;
+      --max: 1200px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(79,209,255,0.10), transparent 24%),
+        radial-gradient(circle at top right, rgba(141,240,255,0.10), transparent 26%),
+        linear-gradient(180deg, var(--bg) 0%, var(--bg2) 54%, var(--bg3) 100%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(12px);
+      background: rgba(7, 14, 25, 0.84);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      font-size: 1.5rem;
+      font-weight: 800;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      padding: 10px 14px;
+      border-radius: 999px;
+      transition: 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+      background: rgba(255,255,255,0.05);
+    }
+
+    .hero {
+      padding: 70px 0 28px;
+    }
+
+    .hero-box {
+      padding: 34px;
+      border-radius: 28px;
+      background: linear-gradient(180deg, rgba(18,32,57,0.94), rgba(12,23,43,0.94));
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: var(--shadow);
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(79,209,255,0.12);
+      border: 1px solid rgba(79,209,255,0.22);
+      color: #dffbff;
+      font-size: 0.92rem;
+      margin-bottom: 14px;
+    }
+
+    h1, h2, h3 {
+      margin: 0;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.1;
+      margin-bottom: 16px;
+      max-width: 12ch;
+    }
+
+    .lead {
+      color: var(--muted);
+      max-width: 70ch;
+      font-size: 1.05rem;
+      margin-bottom: 20px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 13px 18px;
+      border-radius: 14px;
+      border: 1px solid transparent;
+      font-weight: 700;
+      transition: 0.2s ease;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #04131b;
+      box-shadow: 0 10px 24px rgba(79,209,255,0.18);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.05);
+      border-color: rgba(255,255,255,0.08);
+      color: var(--text);
+    }
+
+    .section {
+      padding: 28px 0;
+    }
+
+    .section-head {
+      margin-bottom: 18px;
+    }
+
+    .section-head p {
+      margin: 10px 0 0;
+      color: var(--muted);
+      max-width: 72ch;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      padding: 22px;
+      border-radius: var(--radius);
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.07);
+      box-shadow: var(--shadow);
+    }
+
+    .card p {
+      color: var(--muted);
+      margin: 10px 0 0;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(79,209,255,0.12);
+      color: #dffbff;
+      border: 1px solid rgba(79,209,255,0.20);
+      font-size: 0.84rem;
+      margin-bottom: 10px;
+    }
+
+    .cta-box {
+      margin-top: 18px;
+      text-align: center;
+      padding: 28px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, rgba(79,209,255,0.12), rgba(141,240,255,0.10));
+      border: 1px solid rgba(79,209,255,0.16);
+      box-shadow: var(--shadow);
+    }
+
+    .cta-box p {
+      color: var(--muted);
+      max-width: 64ch;
+      margin: 10px auto 20px;
+    }
+
+    footer {
+      padding: 34px 0 48px;
+      color: var(--muted);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      margin-top: 30px;
+    }
+
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 980px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .nav {
+        flex-direction: column;
+        justify-content: center;
+        padding: 14px 0;
+      }
+
+      .hero-box,
+      .card,
+      .cta-box {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container nav">
+      <a href="index.html" class="brand">Dan &amp; Data AI Lab</a>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="software.html">Software</a>
+        <a href="electronics.html">Electronics</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-box">
+          <div class="eyebrow">Nova Class • Technical AI family</div>
+          <h1>Nova Ecosystem</h1>
+          <p class="lead">
+            Nova represents the technical, structured, and operational branch of the D&amp;D AI ecosystem. These systems are built for productivity, organization, research, security, and advanced technical workflows.
+          </p>
+          <p class="lead">
+            The Nova class is designed to support serious tasks: coordination, information handling, analysis, digital protection, and technical project execution in a practical way.
+          </p>
+          <div class="hero-actions">
+            <a href="#nova-family" class="btn btn-primary">Explore Nova Class</a>
+            <a href="nova.html" class="btn btn-secondary">View Nova Page</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="nova-family">
+      <div class="container">
+        <div class="section-head">
+          <h2>Nova AI Family</h2>
+          <p>
+            These are representative directions for the Nova ecosystem. They show the technical, productivity-focused, and security-oriented branch of the D&amp;D AI vision.
+          </p>
+        </div>
+
+        <div class="grid">
+          <div class="card">
+            <div class="tag">Nova Organizer</div>
+            <h3>Organization & Workflow</h3>
+            <p>
+              AI systems designed to structure tasks, coordinate processes, organize information, and keep workflows clear and usable.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="tag">Nova Productivity</div>
+            <h3>Technical Productivity Assistance</h3>
+            <p>
+              Practical AI support for day-to-day work, productivity, structured decision flow, and useful technical assistance.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="tag">Nova Research</div>
+            <h3>Analysis & Research Direction</h3>
+            <p>
+              AI focused on structured information gathering, technical investigation, comparison, and support for research-oriented workflows.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="tag">Nova Security</div>
+            <h3>Cybersecurity & Protection</h3>
+            <p>
+              Technical AI concepts built around security thinking, protective workflows, awareness, digital safety, and system hardening direction.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="tag">Nova Ethical Hacking</div>
+            <h3>Defensive Security Concepts</h3>
+            <p>
+              Ethical and defensive technical direction centered on understanding attack surfaces, improving protection, and strengthening resilience.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="tag">Future Nova</div>
+            <h3>Advanced Technical Systems</h3>
+            <p>
+              Future Nova-class directions may include operational assistants, technical secretariat roles, local research systems, and secure offline workflows.
+            </p>
+          </div>
+        </div>
+
+        <div class="cta-box">
+          <h2>Need a technical AI concept?</h2>
+          <p>
+            The Nova ecosystem is built for structure, research, productivity, security, and serious technical workflows. This is the analytical and operational branch of the D&amp;D ecosystem.
+          </p>
+          <div class="hero-actions" style="justify-content:center;">
+            <a href="nova.html" class="btn btn-primary">Open Nova</a>
+            <a href="mailto:contact@yourdomain.com?subject=Nova%20AI%20Class%20Request" class="btn btn-secondary">Request Nova Concept</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-row">
+      <div>
+        <strong>Dan &amp; Data AI Lab</strong><br>
+        Nova Class – technical and operational AI systems.
+      </div>
+      <div>
+        Structured AI built for serious digital workflows.
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
