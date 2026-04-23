@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mobile Products | Dan & Data AI Lab</title>
+
+<style>
+:root {
+  --bg: #1a1405;
+  --bg2: #2a1f08;
+  --card: rgba(255, 215, 120, 0.08);
+  --line: rgba(255, 215, 120, 0.2);
+  --text: #fff8e6;
+  --muted: #d8cfa8;
+  --gold1: #ffd700;
+  --gold2: #ffb347;
+  --radius: 20px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at top, rgba(255,215,0,0.15), transparent 30%),
+    linear-gradient(180deg, var(--bg), var(--bg2));
+}
+
+/* NAV */
+.nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  border-bottom: 1px solid var(--line);
+}
+
+.nav a {
+  color: var(--muted);
+  text-decoration: none;
+  margin-left: 15px;
+}
+
+.nav a:hover {
+  color: var(--text);
+}
+
+/* HERO */
+.hero {
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 40px;
+}
+
+.hero p {
+  color: var(--muted);
+}
+
+/* SEARCH */
+.search {
+  margin: 20px auto;
+  max-width: 500px;
+}
+
+.search input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  outline: none;
+}
+
+/* GRID */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+/* CARD */
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 20px;
+  transition: 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card img {
+  width: 100%;
+  border-radius: 12px;
+}
+
+.card h3 {
+  margin: 10px 0;
+}
+
+.card p {
+  color: var(--muted);
+}
+
+.price {
+  color: var(--gold1);
+  font-weight: bold;
+}
+
+/* BUTTON */
+.btn {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 15px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--gold1), var(--gold2));
+  color: black;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+/* FOOTER */
+footer {
+  padding: 30px;
+  text-align: center;
+  color: var(--muted);
+  border-top: 1px solid var(--line);
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<div class="nav">
+  <div><b>Dan & Data AI Lab</b></div>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="products.html">Products</a>
+    <a href="software.html">Software</a>
+    <a href="electronics.html">Electronics</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>Mobile Apps Catalog</h1>
+  <p>Android tools, automation apps and mobile AI solutions built for real-world use.</p>
+</div>
+
+<!-- SEARCH -->
+<div class="search">
+  <input type="text" id="searchInput" placeholder="Search mobile apps...">
+</div>
+
+<!-- PRODUCTS -->
+<div class="grid" id="productsGrid"></div>
+
+<!-- FOOTER -->
+<footer>
+  Dan & Data AI Lab – Mobile applications for real-world use.
+</footer>
+
+<!-- SCRIPT -->
+<script>
+const products = [
+  {
+    name: "Overlay System PRO",
+    image: "images/overlay.png",
+    description: "Advanced Android overlay system for real-time interaction.",
+    price: "$25",
+    link: "#"
+  },
+  {
+    name: "Mobile Automation Tool",
+    image: "images/mobile-automation.png",
+    description: "Control apps, automate tasks and workflows directly from your phone.",
+    price: "$30",
+    link: "#"
+  }
+];
+
+const grid = document.getElementById("productsGrid");
+const searchInput = document.getElementById("searchInput");
+
+function renderProducts(list) {
+  grid.innerHTML = "";
+  list.forEach(p => {
+    grid.innerHTML += `
+      <div class="card">
+        <img src="${p.image}" alt="">
+        <h3>${p.name}</h3>
+        <p>${p.description}</p>
+        <div class="price">${p.price}</div>
+        <a href="${p.link}" class="btn">Buy</a>
+      </div>
+    `;
+  });
+}
+
+searchInput.addEventListener("input", () => {
+  const value = searchInput.value.toLowerCase();
+  const filtered = products.filter(p =>
+    p.name.toLowerCase().includes(value)
+  );
+  renderProducts(filtered);
+});
+
+renderProducts(products);
+</script>
+
+</body>
+</html>
