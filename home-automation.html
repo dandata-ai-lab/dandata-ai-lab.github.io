@@ -11,13 +11,13 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: linear-gradient(180deg, #0b0f1a 0%, #11182a 100%);
-    color: #ffffff;
+    background: linear-gradient(180deg, #0f1115 0%, #1a1d23 100%);
+    color: #e6e9ef;
 }
 
 /* NAV */
 nav {
-    background: rgba(10,14,24,0.95);
+    background: rgba(20,22,28,0.95);
     border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 
@@ -29,15 +29,15 @@ nav {
     padding: 14px 20px;
 }
 
-.brand { font-weight: bold; }
+.brand { font-weight: bold; color:#ffffff; }
 
 .nav-links a {
-    color: #c7d2e3;
+    color: #b8c0cc;
     margin-left: 18px;
     text-decoration: none;
 }
 
-.nav-links a:hover { color:#00d8ff; }
+.nav-links a:hover { color:#ffffff; }
 
 /* SECTION */
 .section {
@@ -46,12 +46,21 @@ nav {
     padding: 60px 20px;
 }
 
-h1 { font-size: 42px; }
-h2 { margin-top: 40px; }
+h1 {
+    font-size: 44px;
+    color: #ffffff;
+}
 
+h2 {
+    margin-top: 40px;
+    color: #d0d6df;
+}
+
+/* INTRO */
 .intro {
-    color:#b7c3d9;
+    color:#aeb5c0;
     line-height:1.6;
+    font-size:17px;
 }
 
 /* GRID */
@@ -63,23 +72,29 @@ h2 { margin-top: 40px; }
 
 /* CARD */
 .card {
-    background: rgba(18,24,43,0.95);
+    background: linear-gradient(145deg, #1c1f26, #14171d);
     border:1px solid rgba(255,255,255,0.06);
     border-radius:14px;
     padding:22px;
+    transition:0.2s;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
 }
 
 /* PRICE */
 .price {
-    color:#00d8ff;
+    color:#cfd6df;
     font-weight:bold;
     margin-top:10px;
 }
 
 /* BUTTON */
 .btn {
-    background:#00d8ff;
-    color:#041018;
+    background: linear-gradient(90deg,#cfd6df,#9aa3af);
+    color:#0b0f14;
     padding:12px 18px;
     border-radius:8px;
     text-decoration:none;
@@ -88,11 +103,24 @@ h2 { margin-top: 40px; }
     font-weight:bold;
 }
 
+.btn:hover {
+    opacity:0.9;
+}
+
+/* HERO BOX */
+.hero-box {
+    background: linear-gradient(145deg,#1b1e25,#13161b);
+    padding:30px;
+    border-radius:16px;
+    border:1px solid rgba(255,255,255,0.05);
+    margin-bottom:40px;
+}
+
 /* FOOTER */
 footer {
     text-align:center;
     padding:30px;
-    color:#90a0bb;
+    color:#7e8795;
 }
 </style>
 </head>
@@ -112,94 +140,97 @@ footer {
 
 <section class="section">
 
+<div class="hero-box">
 <h1>Home Automation & Smart Systems</h1>
 
 <p class="intro">
-I build real automation systems — not just apps.  
-Hardware + software + AI working together locally, without cloud dependency.
+Real automation systems built by an experienced electronics engineer.  
+No cloud. No subscriptions. Full control.  
+Hardware + software + AI working together locally.
 </p>
 
-<a href="AICI_PUI_FIVERR" class="btn">Request Custom Automation</a>
+<a href="AICI_PUI_FIVERR" class="btn">Start Your Project</a>
+</div>
 
-<h2>What I Can Build</h2>
+<h2>What I Build</h2>
 
 <div class="grid">
 
 <div class="card">
-<h3>Smart Home Control</h3>
-<p>Lights, heating, security, remote control systems.</p>
+<h3>Smart Home Systems</h3>
+<p>Lighting, heating, security and remote control.</p>
 </div>
 
 <div class="card">
-<h3>Raspberry Pi Automation</h3>
-<p>Local servers, dashboards, smart hubs.</p>
+<h3>Raspberry Pi Servers</h3>
+<p>Local dashboards and automation hubs.</p>
 </div>
 
 <div class="card">
-<h3>Arduino / ESP32 Systems</h3>
-<p>Sensors, relays, automation circuits.</p>
+<h3>Arduino / ESP32</h3>
+<p>Sensors, relays and hardware automation.</p>
 </div>
 
 <div class="card">
 <h3>Industrial Automation</h3>
-<p>Workshops, machines, process control.</p>
+<p>Machines, workshops and control systems.</p>
 </div>
 
 </div>
 
-<h2>Example Projects</h2>
+<h2>Example Solutions</h2>
 
 <div class="grid">
 
 <div class="card">
 <h3>Smart Lighting System</h3>
-<p>Control lights via app or automation rules.</p>
+<p>Automation rules + remote control.</p>
 <div class="price">Starting from $50</div>
 </div>
 
 <div class="card">
-<h3>Home Energy Monitor</h3>
-<p>Track consumption and optimize usage.</p>
+<h3>Energy Monitoring System</h3>
+<p>Track and optimize power consumption.</p>
 <div class="price">Starting from $80</div>
 </div>
 
 <div class="card">
-<h3>Custom Automation System</h3>
+<h3>Custom System</h3>
 <p>Fully tailored solution for your needs.</p>
 <div class="price">Custom pricing</div>
 </div>
 
 </div>
 
-<h2>How I Work</h2>
+<h2>Why Work With Me</h2>
 
 <div class="grid">
 
 <div class="card">
-<h3>1. Analyze</h3>
-<p>I understand your real problem.</p>
+<h3>23+ Years Experience</h3>
+<p>Electronics, automation and real-world systems.</p>
 </div>
 
 <div class="card">
-<h3>2. Design</h3>
-<p>I build a practical and efficient solution.</p>
+<h3>Offline First</h3>
+<p>No cloud dependency. Full control.</p>
 </div>
 
 <div class="card">
-<h3>3. Build</h3>
-<p>Hardware + software integration.</p>
+<h3>Custom Builds</h3>
+<p>Every system built for your exact needs.</p>
 </div>
 
 <div class="card">
-<h3>4. Deliver</h3>
-<p>Tested, working system.</p>
+<h3>Real Engineering</h3>
+<p>Not templates. Real solutions.</p>
 </div>
 
 </div>
 
-<h2>Ready to Build Your System?</h2>
+<h2>Ready to Build?</h2>
 
-<a href="AICI_PUI_FIVERR" class="btn">Start Project</a>
+<a href="AICI_PUI_FIVERR" class="btn">Request Custom System</a>
 
 <br><br>
 
@@ -208,7 +239,7 @@ Hardware + software + AI working together locally, without cloud dependency.
 </section>
 
 <footer>
-<p>© Dan & Data AI Lab — Real Automation. Real Systems.</p>
+<p>© Dan & Data AI Lab — Industrial Automation & Smart Systems</p>
 </footer>
 
 </body>
