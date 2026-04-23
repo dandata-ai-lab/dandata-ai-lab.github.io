@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Home Automation PRO | Dan & Data AI Lab</title>
+<title>Automation Systems | Dan & Data AI Lab</title>
 
 <style>
 * { box-sizing: border-box; }
@@ -11,14 +11,13 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: linear-gradient(180deg, #0f1115 0%, #1a1d23 100%);
-    color: #e6e9ef;
+    background: linear-gradient(180deg, #dcdfe4 0%, #bfc5cc 100%);
+    color: #1a1a1a;
 }
 
 /* NAV */
 nav {
-    background: rgba(20,22,28,0.95);
-    border-bottom: 1px solid rgba(255,255,255,0.08);
+    background: #2b2f36;
 }
 
 .nav-container {
@@ -29,15 +28,20 @@ nav {
     padding: 14px 20px;
 }
 
-.brand { font-weight: bold; color:#ffffff; }
+.brand {
+    color: #ffffff;
+    font-weight: bold;
+}
 
 .nav-links a {
-    color: #b8c0cc;
+    color: #cfd6df;
     margin-left: 18px;
     text-decoration: none;
 }
 
-.nav-links a:hover { color:#ffffff; }
+.nav-links a:hover {
+    color: #ffffff;
+}
 
 /* SECTION */
 .section {
@@ -47,20 +51,26 @@ nav {
 }
 
 h1 {
-    font-size: 44px;
-    color: #ffffff;
+    font-size: 42px;
+    margin-bottom: 10px;
 }
 
 h2 {
     margin-top: 40px;
-    color: #d0d6df;
 }
 
-/* INTRO */
+/* HERO */
+.hero {
+    background: linear-gradient(145deg,#ffffff,#e6e9ee);
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    margin-bottom: 40px;
+}
+
 .intro {
-    color:#aeb5c0;
+    color:#444;
     line-height:1.6;
-    font-size:17px;
 }
 
 /* GRID */
@@ -72,29 +82,28 @@ h2 {
 
 /* CARD */
 .card {
-    background: linear-gradient(145deg, #1c1f26, #14171d);
-    border:1px solid rgba(255,255,255,0.06);
-    border-radius:14px;
-    padding:22px;
-    transition:0.2s;
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 22px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    transition: 0.2s;
 }
 
 .card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
 }
 
 /* PRICE */
 .price {
-    color:#cfd6df;
+    color:#0077ff;
     font-weight:bold;
     margin-top:10px;
 }
 
 /* BUTTON */
 .btn {
-    background: linear-gradient(90deg,#cfd6df,#9aa3af);
-    color:#0b0f14;
+    background:#2b2f36;
+    color:#ffffff;
     padding:12px 18px;
     border-radius:8px;
     text-decoration:none;
@@ -104,23 +113,14 @@ h2 {
 }
 
 .btn:hover {
-    opacity:0.9;
-}
-
-/* HERO BOX */
-.hero-box {
-    background: linear-gradient(145deg,#1b1e25,#13161b);
-    padding:30px;
-    border-radius:16px;
-    border:1px solid rgba(255,255,255,0.05);
-    margin-bottom:40px;
+    background:#0077ff;
 }
 
 /* FOOTER */
 footer {
     text-align:center;
     padding:30px;
-    color:#7e8795;
+    color:#333;
 }
 </style>
 </head>
@@ -140,13 +140,12 @@ footer {
 
 <section class="section">
 
-<div class="hero-box">
+<div class="hero">
 <h1>Home Automation & Smart Systems</h1>
 
 <p class="intro">
-Real automation systems built by an experienced electronics engineer.  
-No cloud. No subscriptions. Full control.  
-Hardware + software + AI working together locally.
+I design and build real automation systems using electronics, software and AI.  
+No cloud dependency. Full control. Built for reliability and efficiency.
 </p>
 
 <a href="AICI_PUI_FIVERR" class="btn">Start Your Project</a>
@@ -157,23 +156,23 @@ Hardware + software + AI working together locally.
 <div class="grid">
 
 <div class="card">
-<h3>Smart Home Systems</h3>
-<p>Lighting, heating, security and remote control.</p>
+<h3>Smart Home Control</h3>
+<p>Lighting, heating, security and remote systems.</p>
 </div>
 
 <div class="card">
-<h3>Raspberry Pi Servers</h3>
-<p>Local dashboards and automation hubs.</p>
+<h3>Raspberry Pi Systems</h3>
+<p>Local dashboards and automation servers.</p>
 </div>
 
 <div class="card">
 <h3>Arduino / ESP32</h3>
-<p>Sensors, relays and hardware automation.</p>
+<p>Hardware automation with sensors and relays.</p>
 </div>
 
 <div class="card">
 <h3>Industrial Automation</h3>
-<p>Machines, workshops and control systems.</p>
+<p>Machines and workshop control systems.</p>
 </div>
 
 </div>
@@ -184,46 +183,46 @@ Hardware + software + AI working together locally.
 
 <div class="card">
 <h3>Smart Lighting System</h3>
-<p>Automation rules + remote control.</p>
+<p>Automated control + remote access.</p>
 <div class="price">Starting from $50</div>
 </div>
 
 <div class="card">
-<h3>Energy Monitoring System</h3>
-<p>Track and optimize power consumption.</p>
+<h3>Energy Monitoring</h3>
+<p>Track and reduce consumption.</p>
 <div class="price">Starting from $80</div>
 </div>
 
 <div class="card">
 <h3>Custom System</h3>
-<p>Fully tailored solution for your needs.</p>
+<p>Built exactly for your needs.</p>
 <div class="price">Custom pricing</div>
 </div>
 
 </div>
 
-<h2>Why Work With Me</h2>
+<h2>Why Choose Me</h2>
 
 <div class="grid">
 
 <div class="card">
 <h3>23+ Years Experience</h3>
-<p>Electronics, automation and real-world systems.</p>
+<p>Electronics and automation.</p>
 </div>
 
 <div class="card">
 <h3>Offline First</h3>
-<p>No cloud dependency. Full control.</p>
+<p>No cloud, full privacy.</p>
 </div>
 
 <div class="card">
-<h3>Custom Builds</h3>
-<p>Every system built for your exact needs.</p>
+<h3>Custom Solutions</h3>
+<p>Built for your exact case.</p>
 </div>
 
 <div class="card">
-<h3>Real Engineering</h3>
-<p>Not templates. Real solutions.</p>
+<h3>Reliable Systems</h3>
+<p>Tested and stable solutions.</p>
 </div>
 
 </div>
@@ -239,7 +238,7 @@ Hardware + software + AI working together locally.
 </section>
 
 <footer>
-<p>© Dan & Data AI Lab — Industrial Automation & Smart Systems</p>
+<p>© Dan & Data AI Lab — Automation & Engineering</p>
 </footer>
 
 </body>
