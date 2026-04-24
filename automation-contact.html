@@ -27,60 +27,93 @@ nav {
     padding: 14px 20px;
 }
 
-.brand { color: #fff; font-weight: bold; }
+.brand {
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.nav-links a {
+    color: #d8dee6;
+    margin-left: 18px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.nav-links a:hover {
+    color: #ffffff;
+}
 
 .section {
-    max-width: 700px;
+    max-width: 760px;
     margin: auto;
-    padding: 50px 20px;
+    padding: 55px 20px;
 }
 
 .form-box {
     background: #ffffff;
-    padding: 30px;
-    border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    padding: 32px;
+    border-radius: 18px;
+    box-shadow: 0 14px 35px rgba(0,0,0,0.18);
 }
 
 h1 {
     margin-top: 0;
+    color: #111;
+}
+
+p {
+    color: #333;
+    line-height: 1.6;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin-top: 14px;
 }
 
 input, select, textarea {
     width: 100%;
-    padding: 12px;
-    margin-top: 10px;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    font-size: 14px;
+    padding: 13px;
+    margin-top: 8px;
+    margin-bottom: 12px;
+    border-radius: 9px;
+    border: 1px solid #b8bec6;
+    font-size: 15px;
 }
 
 textarea {
-    height: 120px;
+    min-height: 130px;
+    resize: vertical;
 }
 
 .btn {
     background: #2b2f36;
-    color: #fff;
-    padding: 14px;
-    border: none;
-    border-radius: 10px;
-    width: 100%;
+    color: #ffffff;
+    padding: 14px 20px;
+    border-radius: 9px;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 14px;
+    margin-right: 10px;
     font-weight: bold;
+    border: none;
     cursor: pointer;
+    font-size: 15px;
 }
 
 .btn:hover {
-    background: #0077ff;
+    background: #006ee6;
 }
 
 .back {
-    margin-top: 20px;
-    display: inline-block;
-    text-decoration: none;
-    color: #2b2f36;
-    font-weight: bold;
+    background: #6b7280;
+}
+
+.small-note {
+    font-size: 13px;
+    color: #555;
+    margin-top: 12px;
 }
 </style>
 </head>
@@ -90,6 +123,11 @@ textarea {
 <nav>
 <div class="nav-container">
     <div class="brand">Dan & Data AI Lab</div>
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="home-automation.html">Automation</a>
+        <a href="electronics.html">Electronics</a>
+    </div>
 </div>
 </nav>
 
@@ -99,31 +137,58 @@ textarea {
 
 <h1>Request Custom Automation</h1>
 
-<form action="mailto:EMAILUL_TAU@gmail.com" method="post" enctype="text/plain">
+<p>
+Tell me what kind of automation system you need. I will review your request
+and reply with the next steps, estimated complexity and possible solution.
+</p>
 
-<label>Name</label>
+<form action="https://formspree.io/f/mojyyyke" method="POST">
+
+<input type="hidden" name="_subject" value="New Automation Request - Dan & Data AI Lab">
+
+<label>Your Name</label>
 <input type="text" name="Name" required>
 
 <label>Email</label>
 <input type="email" name="Email" required>
 
+<label>Phone / WhatsApp</label>
+<input type="text" name="Phone or WhatsApp" placeholder="Optional">
+
 <label>Project Type</label>
-<select name="Project Type">
-    <option>Smart Home</option>
-    <option>Raspberry Pi</option>
-    <option>Arduino / ESP32</option>
-    <option>Industrial Automation</option>
+<select name="Project Type" required>
+    <option value="">Select project type</option>
+    <option>Smart Home Automation</option>
+    <option>Raspberry Pi System</option>
+    <option>Arduino / ESP32 Automation</option>
+    <option>Industrial / Workshop Automation</option>
+    <option>Energy Monitoring</option>
+    <option>AI + Hardware Integration</option>
     <option>Custom Project</option>
 </select>
 
+<label>Estimated Budget</label>
+<select name="Estimated Budget">
+    <option value="">Select budget range</option>
+    <option>Under $50</option>
+    <option>$50 - $100</option>
+    <option>$100 - $250</option>
+    <option>$250 - $500</option>
+    <option>$500+</option>
+    <option>Not sure yet</option>
+</select>
+
 <label>Project Details</label>
-<textarea name="Details" placeholder="Describe what you want..."></textarea>
+<textarea name="Project Details" required placeholder="Describe what you want to build, control, monitor or automate..."></textarea>
 
 <button type="submit" class="btn">Send Request</button>
+<a href="home-automation.html" class="btn back">Back to Automation</a>
+
+<p class="small-note">
+After sending, you may receive a Formspree confirmation message. Your request will be sent directly to Dan & Data AI Lab.
+</p>
 
 </form>
-
-<a href="index.html" class="back">← Back to Home</a>
 
 </div>
 
