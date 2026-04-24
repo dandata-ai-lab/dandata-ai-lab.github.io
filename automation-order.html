@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Automation Order System | Dan & Data AI Lab</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(180deg, #e6e8ec 0%, #bfc5cc 100%);
+    color: #15171a;
+}
+
+nav { background: #2b2f36; }
+
+.nav-container {
+    max-width: 1100px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    padding: 14px 20px;
+}
+
+.brand { color: #fff; font-weight: bold; }
+
+.nav-links a {
+    color: #d8dee6;
+    margin-left: 18px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.section {
+    max-width: 1000px;
+    margin: auto;
+    padding: 50px 20px;
+}
+
+.box {
+    background: #ffffff;
+    padding: 28px;
+    border-radius: 18px;
+    box-shadow: 0 14px 35px rgba(0,0,0,0.18);
+    margin-bottom: 24px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 18px;
+}
+
+.service {
+    border: 1px solid #c7ccd3;
+    border-radius: 14px;
+    padding: 18px;
+    background: #f8f9fb;
+}
+
+.service label {
+    font-weight: bold;
+    display: block;
+    cursor: pointer;
+}
+
+.price {
+    color: #006ee6;
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 13px;
+    margin-top: 8px;
+    margin-bottom: 14px;
+    border-radius: 9px;
+    border: 1px solid #b8bec6;
+    font-size: 15px;
+}
+
+textarea {
+    min-height: 120px;
+}
+
+.btn {
+    background: #2b2f36;
+    color: #ffffff;
+    padding: 14px 20px;
+    border-radius: 9px;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 12px;
+    margin-right: 10px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+}
+
+.btn:hover { background: #006ee6; }
+
+.summary {
+    background: #111820;
+    color: white;
+    padding: 22px;
+    border-radius: 16px;
+}
+
+.summary p { color: #e8eef7; }
+
+.small {
+    font-size: 13px;
+    color: #555;
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+<div class="nav-container">
+    <div class="brand">Dan & Data AI Lab</div>
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="home-automation.html">Automation</a>
+        <a href="automation-contact.html">Contact</a>
+    </div>
+</div>
+</nav>
+
+<section class="section">
+
+<div class="box">
+<h1>Build Your Automation Request</h1>
+<p>
+Select the services you are interested in. This is not a final payment checkout.
+It creates a project request that will be reviewed manually.
+</p>
+</div>
+
+<div class="box">
+<h2>Select Services</h2>
+
+<div class="grid">
+
+<div class="service">
+<label><input type="checkbox" class="item" data-name="Smart Home Control" data-price="50"> Smart Home Control</label>
+<p>Lighting, heating, sensors, alarms and local control.</p>
+<div class="price">From $50</div>
+</div>
+
+<div class="service">
+<label><input type="checkbox" class="item" data-name="Energy Monitoring System" data-price="80"> Energy Monitoring System</label>
+<p>Track power consumption and improve efficiency.</p>
+<div class="price">From $80</div>
+</div>
+
+<div class="service">
+<label><input type="checkbox" class="item" data-name="Raspberry Pi Dashboard" data-price="120"> Raspberry Pi Dashboard</label>
+<p>Local dashboard for monitoring and control.</p>
+<div class="price">From $120</div>
+</div>
+
+<div class="service">
+<label><input type="checkbox" class="item" data-name="Arduino / ESP32 Automation" data-price="70"> Arduino / ESP32 Automation</label>
+<p>Sensors, relays, wireless control and embedded logic.</p>
+<div class="price">From $70</div>
+</div>
+
+<div class="service">
+<label><input type="checkbox" class="item" data-name="Industrial / Workshop Automation" data-price="150"> Industrial / Workshop Automation</label>
+<p>Custom control systems for machines and workshops.</p>
+<div class="price">From $150</div>
+</div>
+
+<div class="service">
+<label><input type="checkbox" class="item" data-name="AI + Hardware Integration" data-price="200"> AI + Hardware Integration</label>
+<p>Offline AI combined with electronics and automation.</p>
+<div class="price">From $200</div>
+</div>
+
+</div>
+</div>
+
+<div class="summary">
+<h2>Selected Request</h2>
+<p id="selectedList">No services selected yet.</p>
+<h3 id="totalPrice">Estimated starting total: $0</h3>
+</div>
+
+<br>
+
+<div class="box">
+<h2>Contact Details</h2>
+
+<form action="https://formspree.io/f/mojyyyke" method="POST" onsubmit="prepareOrder()">
+
+<input type="hidden" name="_subject" value="New Automation Order Request - Dan & Data AI Lab">
+<input type="hidden" name="Selected Services" id="orderSummary">
+<input type="hidden" name="Estimated Total" id="orderTotal">
+
+<label>Your Name</label>
+<input type="text" name="Name" required>
+
+<label>Email</label>
+<input type="email" name="Email" required>
+
+<label>Phone / WhatsApp</label>
+<input type="text" name="Phone or WhatsApp" placeholder="Optional">
+
+<label>Country</label>
+<input type="text" name="Country" placeholder="Optional">
+
+<label>Extra Details</label>
+<textarea name="Extra Details" placeholder="Describe your system, devices, problem or idea..."></textarea>
+
+<button type="submit" class="btn">Send Order Request</button>
+<a href="home-automation.html" class="btn">Back to Automation</a>
+
+<p class="small">
+This is not a payment checkout. It sends your selected request to Dan & Data AI Lab for review.
+</p>
+
+</form>
+</div>
+
+</section>
+
+<script>
+const items = document.querySelectorAll(".item");
+const selectedList = document.getElementById("selectedList");
+const totalPrice = document.getElementById("totalPrice");
+const orderSummary = document.getElementById("orderSummary");
+const orderTotal = document.getElementById("orderTotal");
+
+function updateCart() {
+    let selected = [];
+    let total = 0;
+
+    items.forEach(item => {
+        if (item.checked) {
+            selected.push(item.dataset.name + " - from $" + item.dataset.price);
+            total += Number(item.dataset.price);
+        }
+    });
+
+    if (selected.length === 0) {
+        selectedList.innerText = "No services selected yet.";
+        totalPrice.innerText = "Estimated starting total: $0";
+    } else {
+        selectedList.innerText = selected.join(" | ");
+        totalPrice.innerText = "Estimated starting total: $" + total;
+    }
+
+    orderSummary.value = selected.join(" | ");
+    orderTotal.value = "$" + total;
+}
+
+function prepareOrder() {
+    updateCart();
+}
+
+items.forEach(item => {
+    item.addEventListener("change", updateCart);
+});
+</script>
+
+</body>
+</html>
