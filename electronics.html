@@ -1,240 +1,727 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Electronics & Automation | Dan & Data AI Lab</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Electronics & Automation | Dan & Data AI Lab</title>
+  <style>
+    :root {
+      --bg: #143526;
+      --bg2: #1b4632;
+      --bg3: #245940;
+      --card: rgba(24, 74, 50, 0.82);
+      --card-deep: rgba(18, 56, 38, 0.9);
+      --line: rgba(186, 255, 214, 0.18);
+      --text: #f4fff8;
+      --muted: #d0e6d8;
+      --accent: #56f0b5;
+      --accent2: #9dff9d;
+      --accent3: #9ff0ff;
+      --shadow: 0 18px 40px rgba(0, 0, 0, 0.32);
+      --radius: 22px;
+      --max: 1200px;
+    }
 
-<style>
-:root {
-  --bg: #1f4f3b;
-  --bg2: #2d6b50;
-  --bg3: #3f8a66;
-  --card: rgba(255,255,255,0.06);
-  --line: rgba(255,255,255,0.08);
-  --text: #f4fff8;
-  --muted: #d7efe4;
-  --accent: #7cffc4;
-  --accent2: #b2ffb2;
-  --shadow: 0 18px 40px rgba(0,0,0,0.25);
-  --radius: 20px;
-  --max: 1200px;
-}
+    * {
+      box-sizing: border-box;
+    }
 
-* { box-sizing: border-box; }
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  color: var(--text);
-  background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 60%, var(--bg3) 100%);
-}
+    html {
+      scroll-behavior: smooth;
+    }
 
-.container {
-  width: min(var(--max), calc(100% - 32px));
-  margin: auto;
-}
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      line-height: 1.6;
+      background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 52%, var(--bg3) 100%);
+      overflow-x: hidden;
+      position: relative;
+    }
 
-.topbar {
-  background: rgba(0,0,0,0.3);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--line);
-}
+    /* real pcb image + dark overlay */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -3;
+      background:
+        linear-gradient(rgba(10, 28, 20, 0.78), rgba(10, 28, 20, 0.9)),
+        url("images/pcb-bg.jpg") center/cover no-repeat;
+      filter: blur(2px) saturate(0.95);
+      transform: scale(1.03);
+    }
 
-.nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  min-height: 70px;
-}
+    /* animated pcb grid */
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
+      opacity: 0.18;
+      background-image:
+        linear-gradient(90deg, rgba(186,255,214,0.06) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(186,255,214,0.05) 1px, transparent 1px),
+        radial-gradient(circle at 14% 18%, rgba(86,240,181,0.24) 0 3px, transparent 4px),
+        radial-gradient(circle at 31% 36%, rgba(86,240,181,0.18) 0 3px, transparent 4px),
+        radial-gradient(circle at 72% 28%, rgba(159,240,255,0.16) 0 3px, transparent 4px),
+        radial-gradient(circle at 84% 64%, rgba(157,255,157,0.14) 0 3px, transparent 4px);
+      background-size: 84px 84px, 84px 84px, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+      animation: pcbGridMove 22s linear infinite;
+    }
 
-.brand {
-  font-weight: 800;
-  font-size: 1.4rem;
-}
+    /* moving scan line */
+    .scan-line {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      width: 180px;
+      z-index: -1;
+      pointer-events: none;
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(86,240,181,0.02) 20%,
+        rgba(86,240,181,0.08) 48%,
+        rgba(157,255,157,0.10) 50%,
+        rgba(86,240,181,0.08) 52%,
+        rgba(86,240,181,0.02) 80%,
+        transparent 100%
+      );
+      filter: blur(6px);
+      animation: scanMove 10s linear infinite;
+    }
 
-.nav-links a {
-  margin-left: 12px;
-  padding: 8px 12px;
-  border-radius: 999px;
-  color: var(--muted);
-}
+    @keyframes pcbGridMove {
+      from { transform: translate(0, 0); }
+      to { transform: translate(84px, 84px); }
+    }
 
-.nav-links a:hover {
-  background: rgba(255,255,255,0.1);
-  color: white;
-}
+    @keyframes scanMove {
+      from { transform: translateX(-220px); }
+      to { transform: translateX(calc(100vw + 220px)); }
+    }
 
-/* HERO */
-.hero {
-  padding: 60px 0;
-}
+    @keyframes pulseGlow {
+      0%, 100% {
+        box-shadow:
+          0 0 0 rgba(86,240,181,0),
+          0 0 40px rgba(86,240,181,0.10),
+          inset 0 0 20px rgba(86,240,181,0.04);
+      }
+      50% {
+        box-shadow:
+          0 0 20px rgba(86,240,181,0.08),
+          0 0 70px rgba(86,240,181,0.16),
+          inset 0 0 28px rgba(86,240,181,0.08);
+      }
+    }
 
-.hero-box {
-  padding: 30px;
-  border-radius: 20px;
-  background: rgba(0,0,0,0.25);
-  box-shadow: var(--shadow);
-}
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-h1 {
-  font-size: 2.8rem;
-  margin-bottom: 15px;
-}
+    .container {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
 
-.lead {
-  color: var(--muted);
-  max-width: 700px;
-}
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      backdrop-filter: blur(12px);
+      background: rgba(10, 28, 20, 0.82);
+      border-bottom: 1px solid rgba(186,255,214,0.10);
+    }
 
-/* BUTTONS */
-.btn {
-  padding: 12px 18px;
-  border-radius: 12px;
-  font-weight: bold;
-  display: inline-block;
-  margin-top: 15px;
-}
+    .nav {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
 
-.btn-primary {
-  background: linear-gradient(135deg, var(--accent), var(--accent2));
-  color: #003322;
-}
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.45rem;
+      font-weight: 800;
+      letter-spacing: 0.2px;
+    }
 
-.btn-secondary {
-  background: rgba(255,255,255,0.1);
-}
+    .brand-badge {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #032018;
+      font-size: 0.86rem;
+      font-weight: 900;
+      box-shadow:
+        0 0 12px rgba(86,240,181,0.22),
+        0 10px 22px rgba(86,240,181,0.18);
+      animation: pulseGlow 3.2s ease-in-out infinite;
+    }
 
-/* SECTION */
-.section {
-  padding: 40px 0;
-}
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-}
+    .nav-links a {
+      color: var(--muted);
+      padding: 10px 14px;
+      border-radius: 999px;
+      transition: 0.2s ease;
+    }
 
-/* CARD */
-.card {
-  padding: 20px;
-  border-radius: var(--radius);
-  background: rgba(0,0,0,0.25);
-  border: 1px solid var(--line);
-}
+    .nav-links a:hover {
+      color: var(--text);
+      background: rgba(255,255,255,0.05);
+    }
 
-.card:hover {
-  transform: translateY(-3px);
-}
+    .hero {
+      padding: 72px 0 28px;
+    }
 
-.card h3 {
-  margin-bottom: 10px;
-}
+    .hero-box {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(180deg, rgba(30, 88, 61, 0.78), rgba(23, 67, 47, 0.84));
+      border: 1px solid rgba(186,255,214,0.16);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      padding: 36px;
+      backdrop-filter: blur(10px);
+      animation: pulseGlow 4.4s ease-in-out infinite;
+    }
 
-.card p {
-  color: var(--muted);
-}
+    .hero-box::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 8% 20%, rgba(86,240,181,0.14), transparent 16%),
+        radial-gradient(circle at 92% 18%, rgba(159,240,255,0.12), transparent 18%),
+        linear-gradient(90deg, transparent 0 20%, rgba(186,255,214,0.04) 20% 20.2%, transparent 20.2% 100%),
+        linear-gradient(0deg, transparent 0 72%, rgba(86,240,181,0.04) 72% 72.2%, transparent 72.2% 100%);
+    }
 
-/* CTA */
-.cta {
-  text-align: center;
-  padding: 40px;
-  border-radius: 20px;
-  background: rgba(0,0,0,0.3);
-}
+    .eyebrow {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(86,240,181,0.12);
+      border: 1px solid rgba(86,240,181,0.20);
+      color: #d7fff1;
+      font-size: 0.92rem;
+      margin-bottom: 14px;
+      position: relative;
+      z-index: 1;
+    }
 
-footer {
-  padding: 30px 0;
-  border-top: 1px solid var(--line);
-  color: var(--muted);
-}
+    h1, h2, h3 {
+      margin: 0;
+      line-height: 1.15;
+      position: relative;
+      z-index: 1;
+    }
 
-/* RESPONSIVE */
-@media(max-width:900px){
-  .grid { grid-template-columns: 1fr; }
-}
-</style>
+    h1 {
+      font-size: clamp(2rem, 4vw, 3.3rem);
+      margin-bottom: 14px;
+      max-width: 12ch;
+    }
+
+    h2 {
+      font-size: 1.7rem;
+      margin-bottom: 14px;
+    }
+
+    h3 {
+      font-size: 1.25rem;
+    }
+
+    .lead {
+      color: var(--muted);
+      max-width: 74ch;
+      font-size: 1.05rem;
+      margin-bottom: 18px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 13px 18px;
+      border-radius: 14px;
+      border: 1px solid transparent;
+      font-weight: 700;
+      transition: 0.2s ease;
+      cursor: pointer;
+      min-height: 48px;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #032018;
+      box-shadow: 0 10px 24px rgba(86,240,181,0.20);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.05);
+      border-color: rgba(186,255,214,0.12);
+      color: var(--text);
+    }
+
+    .section {
+      padding: 28px 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-head {
+      margin-bottom: 18px;
+    }
+
+    .section-head p {
+      margin: 10px 0 0;
+      color: var(--muted);
+      max-width: 72ch;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: linear-gradient(180deg, rgba(31, 92, 63, 0.78), rgba(21, 62, 44, 0.86));
+      border: 1px solid rgba(186,255,214,0.12);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 22px;
+      min-height: 100%;
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(8px);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow:
+        0 18px 40px rgba(0, 0, 0, 0.34),
+        0 0 24px rgba(86,240,181,0.14);
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      inset: auto -40px -40px auto;
+      width: 140px;
+      height: 140px;
+      background: radial-gradient(circle, rgba(86,240,181,0.10), transparent 60%);
+      pointer-events: none;
+    }
+
+    .card p {
+      color: var(--muted);
+      margin: 10px 0 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .list {
+      display: grid;
+      gap: 10px;
+      margin-top: 12px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .list-item {
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(186,255,214,0.10);
+      color: #f0fff7;
+    }
+
+    .project-box {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .project-tag {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(86,240,181,0.12);
+      color: #e2fff5;
+      border: 1px solid rgba(86,240,181,0.18);
+      font-size: 0.84rem;
+    }
+
+    ul.feature-list {
+      margin: 12px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+
+    ul.feature-list li {
+      margin-bottom: 8px;
+    }
+
+    .cta-box {
+      margin-top: 18px;
+      text-align: center;
+      padding: 28px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, rgba(86,240,181,0.12), rgba(157,255,157,0.10));
+      border: 1px solid rgba(86,240,181,0.16);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(8px);
+    }
+
+    .cta-box::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(90deg, transparent 0 34%, rgba(86,240,181,0.04) 34% 34.2%, transparent 34.2% 100%),
+        linear-gradient(0deg, transparent 0 62%, rgba(157,255,157,0.04) 62% 62.2%, transparent 62.2% 100%);
+    }
+
+    .cta-box p {
+      color: var(--muted);
+      max-width: 64ch;
+      margin: 10px auto 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-box h2,
+    .cta-box .hero-actions {
+      position: relative;
+      z-index: 1;
+    }
+
+    footer {
+      padding: 34px 0 48px;
+      color: var(--muted);
+      border-top: 1px solid rgba(186,255,214,0.10);
+      margin-top: 30px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 980px) {
+      .grid-2,
+      .grid-3 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .nav {
+        flex-direction: column;
+        justify-content: center;
+        padding: 14px 0;
+      }
+
+      .hero-box,
+      .card,
+      .cta-box {
+        padding: 20px;
+      }
+    }
+  </style>
 </head>
-
 <body>
+  <div class="scan-line"></div>
 
-<header class="topbar">
-  <div class="container nav">
-    <div class="brand">Dan & Data AI Lab</div>
-    <div class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="products.html">Products</a>
-      <a href="software.html">Software</a>
-      <a href="electronics.html">Electronics</a>
+  <header class="topbar">
+    <div class="container nav">
+      <a href="index.html" class="brand">
+        <span class="brand-badge">PCB</span>
+        <span>Dan &amp; Data AI Lab</span>
+      </a>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="software.html">Software</a>
+        <a href="electronics.html">Electronics</a>
+      </nav>
     </div>
-  </div>
-</header>
+  </header>
 
-<section class="hero">
-  <div class="container">
-    <div class="hero-box">
-      <h1>Electronics & Automation</h1>
-      <p class="lead">
-        Real-world electronics, diagnostics, automation systems, and embedded projects built from hands-on experience.
-      </p>
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-box">
+          <div class="eyebrow">Electronics • Automation • Embedded Systems</div>
+          <h1>Electronics &amp; Automation</h1>
 
-      <a href="electronics-products.html" class="btn btn-primary">View Electronics Catalog</a>
+          <p class="lead">
+            Real-world electronics, automation systems and hardware solutions built from hands-on experience.
+            From industrial automation to custom-built practical projects, the focus is always on reliability,
+            efficiency and real use.
+          </p>
+
+          <p class="lead">
+            My background includes electronics repair, industrial and home automation, Raspberry Pi systems,
+            Arduino projects, PIC microcontrollers, and low-level programming including Assembler.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#services" class="btn btn-primary">Explore Services</a>
+            <a href="#contact" class="btn btn-secondary">Request Project</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="container">
+        <div class="section-head">
+          <h2>Hands-on engineering experience</h2>
+          <p>
+            This page presents the hardware and automation side of Dan &amp; Data AI Lab.
+            Beyond software and offline AI, the work is rooted in practical electronics,
+            diagnostics, real system behavior, and custom project execution.
+          </p>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3>Electronics background</h3>
+            <p>
+              Experience with practical electronics, troubleshooting, repairs, hardware logic,
+              control concepts, and real-world diagnostics across consumer and industrial equipment.
+            </p>
+            <div class="list">
+              <div class="list-item">Electronics diagnostics and repair</div>
+              <div class="list-item">Component-level practical thinking</div>
+              <div class="list-item">Industrial equipment understanding</div>
+              <div class="list-item">Signal flow and fault analysis</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Automation thinking</h3>
+            <p>
+              Strong practical background in industrial and domestic automation, built around logic,
+              control behavior, reliability, and useful integration between hardware and real needs.
+            </p>
+            <div class="list">
+              <div class="list-item">Industrial automation experience</div>
+              <div class="list-item">Home automation ideas and implementations</div>
+              <div class="list-item">Custom control logic</div>
+              <div class="list-item">Hardware + software integration mindset</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="services">
+      <div class="container">
+        <div class="section-head">
+          <h2>What I can build</h2>
+          <p>
+            These are the types of systems, integrations, and project directions that fit this profile.
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <div class="card">
+            <h3>Raspberry Pi Projects</h3>
+            <p>
+              Practical Raspberry Pi based systems, automation ideas, custom workflows, local control systems,
+              and project-specific hardware integrations.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Arduino Projects</h3>
+            <p>
+              Arduino-based controllers, sensor logic, automation behavior, and practical experimental systems
+              built for real tasks or custom prototypes.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>PIC Microcontrollers</h3>
+            <p>
+              Experience with PIC microcontrollers and low-level logic, including programming in Assembler
+              for direct and practical embedded applications.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Custom Automation Systems</h3>
+            <p>
+              Design direction and build support for custom automation solutions in home or industrial contexts,
+              depending on the project scope.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Electronics Repair &amp; Diagnostics</h3>
+            <p>
+              Real hands-on work with fault finding, system understanding, practical repair logic,
+              and step-by-step troubleshooting.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Hardware + Software Integration</h3>
+            <p>
+              One of the strongest directions: combining physical systems, embedded logic, interfaces,
+              desktop software, and practical digital control.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="projects">
+      <div class="container">
+        <div class="section-head">
+          <h2>Experience highlights</h2>
+          <p>
+            Real experience, practical engineering thinking, and the ability to approach projects
+            from the physical system all the way to the control logic.
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <div class="card project-box">
+            <span class="project-tag">Automation</span>
+            <h3>Industrial &amp; home automation</h3>
+            <p>
+              Practical work involving control logic, automation behavior, hardware response,
+              and system thinking applied to real environments.
+            </p>
+          </div>
+
+          <div class="card project-box">
+            <span class="project-tag">Electronics</span>
+            <h3>Repair, diagnostics &amp; troubleshooting</h3>
+            <p>
+              Understanding electronic faults, tracing practical problems, and working toward
+              real functional solutions through hands-on testing.
+            </p>
+          </div>
+
+          <div class="card project-box">
+            <span class="project-tag">Embedded</span>
+            <h3>Microcontrollers &amp; custom systems</h3>
+            <p>
+              Experience with Arduino, Raspberry Pi, PIC platforms, sensors, and custom embedded logic
+              for applied project development.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="authority">
+      <div class="container">
+        <div class="card">
+          <h2>What makes this different</h2>
+          <p>
+            This is not just theory or software-only presentation. The value here comes from combining
+            real hardware experience with practical logic, digital tools, and project execution.
+          </p>
+          <ul class="feature-list">
+            <li>Real hands-on electronics and repair experience</li>
+            <li>Industrial and domestic automation understanding</li>
+            <li>Raspberry Pi, Arduino and PIC project capability</li>
+            <li>Low-level thinking plus modern digital workflow</li>
+            <li>Strong bridge between hardware and software worlds</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="cta-box">
+          <h2>Need a custom electronics or automation project?</h2>
+          <p>
+            If you need a practical electronics solution, embedded system direction, Raspberry Pi setup,
+            Arduino controller, diagnostic support, or hardware + software integration, this page can serve
+            as the starting point for a real project discussion.
+          </p>
+          <div class="hero-actions" style="justify-content:center;">
+            <a href="mailto:contact@yourdomain.com?subject=Electronics%20and%20Automation%20Project" class="btn btn-primary">Request Custom Project</a>
+            <a href="electronics-products.html" class="btn btn-secondary">View Electronics Catalog</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-row">
+      <div>
+        <strong>Dan &amp; Data AI Lab</strong><br>
+        Electronics, automation, embedded systems, and practical digital building.
+      </div>
+      <div>
+        Real-world engineering, not just theory.
+      </div>
     </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="container grid">
-
-    <div class="card">
-      <h3>Electronics Repair</h3>
-      <p>Diagnostics, troubleshooting and real hardware repair based on practical experience.</p>
-    </div>
-
-    <div class="card">
-      <h3>Automation Systems</h3>
-      <p>Industrial and home automation concepts built around real use cases.</p>
-    </div>
-
-    <div class="card">
-      <h3>Raspberry Pi</h3>
-      <p>Custom systems, local servers, automation workflows and embedded projects.</p>
-    </div>
-
-    <div class="card">
-      <h3>Arduino Projects</h3>
-      <p>Sensor logic, control systems and real prototype development.</p>
-    </div>
-
-    <div class="card">
-      <h3>PIC Microcontrollers</h3>
-      <p>Low-level embedded logic and Assembler-based development.</p>
-    </div>
-
-    <div class="card">
-      <h3>Integration</h3>
-      <p>Hardware + software systems working together in real environments.</p>
-    </div>
-
-  </div>
-</section>
-
-<section class="section">
-  <div class="container">
-    <div class="cta">
-      <h2>Need a custom electronics project?</h2>
-      <p>Contact for diagnostics, automation systems or custom builds.</p>
-
-      <a href="mailto:contact@yourdomain.com" class="btn btn-primary">Request Project</a>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <div class="container">
-    Dan & Data AI Lab – Real Electronics & Automation
-  </div>
-</footer>
-
+  </footer>
 </body>
 </html>
