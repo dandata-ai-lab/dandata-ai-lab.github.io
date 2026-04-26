@@ -72,36 +72,9 @@
       animation: pcbGridMove 22s linear infinite;
     }
 
-    /* moving scan line */
-    .scan-line {
-      position: fixed;
-      top: 0;
-      bottom: 0;
-      width: 180px;
-      z-index: -1;
-      pointer-events: none;
-      background: linear-gradient(
-        90deg,
-        transparent 0%,
-        rgba(86,240,181,0.02) 20%,
-        rgba(86,240,181,0.08) 48%,
-        rgba(157,255,157,0.10) 50%,
-        rgba(86,240,181,0.08) 52%,
-        rgba(86,240,181,0.02) 80%,
-        transparent 100%
-      );
-      filter: blur(6px);
-      animation: scanMove 10s linear infinite;
-    }
-
     @keyframes pcbGridMove {
       from { transform: translate(0, 0); }
       to { transform: translate(84px, 84px); }
-    }
-
-    @keyframes scanMove {
-      from { transform: translateX(-220px); }
-      to { transform: translateX(calc(100vw + 220px)); }
     }
 
     @keyframes pulseGlow {
@@ -487,7 +460,7 @@
   </style>
 </head>
 <body>
-  <div class="scan-line"></div>
+  <!div class="scan-line"></div>----------------------------------------------------------------
 
   <header class="topbar">
     <div class="container nav">
