@@ -345,7 +345,7 @@
       padding: 22px;
       min-height: 100%;
       position: relative;
-      z-index: 2;
+     /* z-index: 2;*/
       overflow: hidden;
       backdrop-filter: blur(8px);
       transition: transform 0.25s ease, box-shadow 0.25s ease;
@@ -359,7 +359,7 @@
          inset 0 0 18px rgba(111, 255, 194, 0.08);
         border-color: rgba(111, 255, 194, 0.35);
     }           
-
+   
     .card::after {
       content: "";
       position: absolute;
@@ -370,6 +370,30 @@
       pointer-events: none;
     }
 
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        120deg,
+        transparent 40%,
+        rgba(111, 255, 194, 0.15) 50%,
+        transparent 60%
+      );
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .card:hover::before {
+      opacity: 1;
+      animation: pcb-flow 1.6s linear infinite;
+    }
+
+    @keyframes pcb-flow {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+    
     .card p {
       color: var(--muted);
       margin: 10px 0 0;
