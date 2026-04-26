@@ -42,19 +42,33 @@
         radial-gradient(circle at 20% 30%, rgba(0,255,150,0.05), transparent 40%);
       overflow-x: hidden;
       position: relative;
+      z-index: 1;
     }
 
-    /* real pcb image + dark overlay */
+    
+    /* PCB background effect */
     body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: -3;
-      background:
-        linear-gradient(rgba(10, 28, 20, 0.78), rgba(10, 28, 20, 0.9)),
-        url("images/pcb-bg.jpg") center/cover no-repeat;
-      filter: blur(2px) saturate(0.95);
-      transform: scale(1.03);
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+
+        background:
+            /* trasee orizontale */
+            linear-gradient(90deg, rgba(0,255,150,0.08) 1px, transparent 1px),
+            /* trasee verticale */
+            linear-gradient(rgba(0,255,150,0.08) 1px, transparent 1px),
+            /* puncte (vias) */
+            radial-gradient(circle at 30% 40%, rgba(0,255,150,0.15) 2px, transparent 3px),
+            radial-gradient(circle at 70% 60%, rgba(0,255,150,0.15) 2px, transparent 3px);
+
+        background-size:
+            120px 2px,
+            2px 120px,
+            200px 200px,
+            260px 260px;
+
+        pointer-events: none;
     }
 
     /* animated pcb grid */
@@ -170,6 +184,8 @@
 
     .hero {
       padding: 72px 0 28px;
+      position: relative;
+      z-index: 2;
     }
 
     .hero-box {
@@ -287,7 +303,7 @@
     .section {
       padding: 28px 0;
       position: relative;
-      z-index: 1;
+      z-index: 2;
     }
 
     .section-head {
@@ -322,6 +338,7 @@
       padding: 22px;
       min-height: 100%;
       position: relative;
+      z-index: 2;
       overflow: hidden;
       backdrop-filter: blur(8px);
       transition: transform 0.25s ease, box-shadow 0.25s ease;
